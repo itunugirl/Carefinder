@@ -1,0 +1,343 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  @apply fixed flex justify-center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 120px 24px 160px 24px;
+  pointer-events: none;
+}
+
+.main:before {
+  @apply absolute z-10 w-full h-full;
+  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.main:after {
+  @apply absolute z-1 w-full h-full opacity-40;
+  background-image: url("/assets/images/grid.svg");
+  filter: invert(1);
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.gradient {
+  height: fit-content;
+  z-index: 3;
+  width: 100%;
+  max-width: 640px;
+  background-image: radial-gradient(
+      at 27% 37%,
+      hsla(215, 98%, 61%, 1) 0px,
+      transparent 0%
+    ),
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  filter: blur(100px) saturate(150%);
+  top: 80px;
+  opacity: 0.15;
+}
+
+@media screen and (max-width: 640px) {
+  .main {
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileLinks {
+    @apply fixed top-[100px] right-0 w-[50%] h-[calc(100vh-100px)] bg-white flex flex-col items-center justify-center gap-2.5;
+  }
+}
+
+.app {
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+}
+
+.head_text {
+  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
+}
+
+@layer utilities {
+  .Blue_gradient {
+    @apply bg-gradient-to-r from-blue-500 via-blue-600 to-sky-500 bg-clip-text text-transparent;
+  }
+}
+
+.orange_gradient {
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.green_gradient {
+  @apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
+}
+
+.blue_gradient {
+  @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+}
+
+.desc {
+  @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
+}
+
+.search_input {
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+}
+
+.copy_btn {
+  @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
+}
+
+.glassmorphism {
+  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+}
+
+.prompt_layout {
+  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+}
+
+.feed {
+  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+}
+
+.form_textarea {
+  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
+}
+
+.form_input {
+  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+}
+
+.logo_text {
+  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+}
+
+.links {
+  @apply flex items-center gap-2.5;
+}
+
+.navbar {
+  @apply bg-[#0ea9e7] h-[50px];
+}
+
+.container {
+  @apply min-w-[100px] p-2.5 rounded-full font-medium text-center;
+}
+
+.active {
+  @apply bg-white text-[#0ea9e7];
+}
+
+.logout {
+  @apply p-2.5 cursor-pointer font-bold;
+}
+
+.dropdown {
+  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
+}
+
+.dropdown_link {
+  @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
+}
+
+.prompt_card {
+  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-start {
+  @apply flex justify-start items-start;
+}
+
+.flex-end {
+  @apply flex justify-end items-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.menuButton {
+  @apply block md:hidden;
+}
+
+.desktopLinks {
+  @apply hidden md:flex;
+}
+
+.mobileMenu {
+  @apply fixed top-16 right-0 w-1/2 h-screen bg-white flex flex-col items-center justify-center space-y-4 md:hidden;
+}
+
+/* Home Component */
+.home_container {
+  @apply flex gap-[50px];
+}
+
+.home_textContainer {
+  @apply flex flex-col gap-[20px];
+}
+
+.home_title {
+  @apply text-[70px] font-bold;
+}
+
+.home_subtitle {
+  @apply text-[35px] font-semibold;
+}
+
+.home_desc {
+  @apply text-[20px] font-medium;
+}
+
+.home_buttons {
+  @apply flex gap-[30px];
+}
+
+.home_button {
+  @apply p-[12px] min-w-[140px] cursor-pointer border-none rounded-[6px] font-medium;
+}
+
+
+
+.home_button:first-child {
+  @apply bg-black text-white;
+}
+.home_button:last-child {
+  @apply bg-blue-500 text-white;
+}
+
+.home_imgContainer {
+  @apply flex-1 relative;
+}
+
+
+
+
+
+
+
+
+/* globals.css */
+
+/* Apply Tailwind utilities to footer container */
+.footer-container {
+  @apply bg-blue-sky py-4 px-16 flex flex-col md:flex-row justify-between items-center w-full mb-16 pt-3 gap-[40px];
+}
+
+/* Apply Tailwind utilities to footer logo */
+.footer-logo {
+  @apply text-xl font-extrabold;
+}
+
+/* Apply Tailwind utilities to footer text */
+.footer-text {
+  @apply text-sm text-right;
+}
+
+/* Apply Tailwind utilities to footer links container */
+.footer-links {
+  @apply flex flex-col space-y-2 md:space-y-0 md:space-x-4 md:flex-row;
+}
+
+/* Apply Tailwind utilities to individual footer links */
+.footer-link {
+  @apply text-gray-300 hover:underline;
+}
+
+
+
+
+
+
+
+
+/* Custom global styles */
+.container {
+  @apply flex gap-24; /* Equivalent to display: flex; gap: 100px; */
+}
+
+.textContainer {
+  @apply flex-1 flex flex-col gap-12; /* Equivalent to flex: 1; display: flex; flex-direction: column; gap: 50px; */
+}
+
+
+.title {
+  @apply text-4xl font-bold; /* Equivalent to font-size: 54px; */
+}
+.subtitle{
+  @apply text-3xl font-bold;
+}
+
+.desc {
+  @apply text-lg font-light; /* Equivalent to font-size: 20px; font-weight: 300; */
+}
+
+.boxes {
+  @apply flex items-center justify-between; /* Equivalent to display: flex; align-items: center; justify-content: space-between; */
+}
+
+.box {
+  @apply flex flex-col gap-2; /* Equivalent to display: flex; flex-direction: column; gap: 10px; */
+}
+
+
+.imgContainer {
+  @apply flex-1 relative; /* Equivalent to flex: 1; position: relative; */
+}
+
+.img {
+  @apply object-contain; /* Equivalent to object-fit: contain; */
+}
+
+.search_input {
+  @apply border border-blue-300 p-3 rounded-md;
+}
+
+@layer utilities {
+  .blue-gradient {
+    background: linear-gradient(to right, #B5E2F0, #0EA9E7);
+  }
+}
+
+.button {
+  @apply bg-blue-500 text-black p-3 rounded-md;
+}
+
+
+
+
+
+
+
+
+.contact_button{
+  @apply text-button-white h-12;
+}
