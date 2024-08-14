@@ -4,7 +4,10 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './src/styles/**/*.css',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}', // Ensure this path is correct
   ],
+  
   theme: {
     extend: {
       fontFamily: {
@@ -16,10 +19,13 @@ module.exports = {
         'button-white': '#ffffff',
         'light-blue': '#B5E2F0',
         'blue-link': '#1E3A8A', // Color for link and underline
+        'gradient-red': '#F8D7DA',
+
       },
       backgroundImage: {
         'gradient-light-blue': 'linear-gradient(to right, #B5E2F0, #0EA9E7)',
         'blue-gradient': 'linear-gradient(to right, #B5E2F0, #0EA9E7)', // Added Blue_gradient
+        'gradient-custom': 'linear-gradient(to right, #B5E2F0, #F8D7DA)', // Custom gradient
       },
       width: {
         '1536': '1536px',
