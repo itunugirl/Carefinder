@@ -2,13 +2,13 @@
 
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from 'firebase/auth';
-import { auth, db, googleProvider, facebookProvider } from '@firebaseConfig'
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signInWithPopup } from 'firebase/auth';
+import { auth, db, googleProvider, facebookProvider } from '@firebaseconfig';
 import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { FirebaseError } from 'firebase/app';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons'; // Import FontAwesome icons
+import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const SignUpPage: React.FC = () => {
   const [surname, setSurname] = useState("");
@@ -20,22 +20,42 @@ const SignUpPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false); 
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!email || !password || !confirmPassword) {
+      setError("All fields are required.");
+      return;
+    }
+    
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
+    
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    
+    // Basic phone number validation (optional)
+    const phoneRegex = /^[0-9]*$/;
+    if (phoneNumber && !phoneRegex.test(phoneNumber)) {
+      setError("Phone number can only contain numbers.");
+      return;
+    }
 
-    setLoading(true); // Start loading
+    setLoading(true); 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, {
         displayName: `${firstName} ${surname}`,
-        photoURL: gender // Example; adjust as needed
+        photoURL: gender 
       });
 
       await setDoc(doc(db, "users", userCredential.user.uid), {
@@ -45,9 +65,11 @@ const SignUpPage: React.FC = () => {
         gender,
       });
 
-      router.push("/search"); // Redirect after successful sign up
+      await sendEmailVerification(userCredential.user); // Send verification email
+
+      router.push("/login"); // Redirect to login page
     } catch (error) {
-      console.error("Sign up error:", error); // Log the full error
+      console.error("Sign up error:", error); 
       if (error instanceof FirebaseError) {
         switch (error.code) {
           case 'auth/email-already-in-use':
@@ -66,14 +88,14 @@ const SignUpPage: React.FC = () => {
         setError("Failed to sign up. Please try again.");
       }
     } finally {
-      setLoading(false); // End loading
+      setLoading(false); 
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      router.push("/search"); // Redirect after successful sign in
+      router.push("/search");
     } catch (error) {
       setError("Failed to sign in with Google.");
     }
@@ -82,7 +104,7 @@ const SignUpPage: React.FC = () => {
   const handleFacebookSignIn = async () => {
     try {
       await signInWithPopup(auth, facebookProvider);
-      router.push("/search"); // Redirect after successful sign in
+      router.push("/search");
     } catch (error) {
       setError("Failed to sign in with Facebook.");
     }
@@ -92,7 +114,6 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="flex min-h-screen bg-blue-gradient md:bg-gray-100">
-      {/* Image Container (Hidden on small devices) */}
       <div className="relative flex-1 hidden md:block">
         <div className="relative w-full h-full">
           <Image 
@@ -105,7 +126,6 @@ const SignUpPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Form Container */}
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
         <form onSubmit={handleSignUp} className="space-y-6 w-full max-w-md md:max-w-4xl bg-white p-6 md:p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6">Create an Account</h1>
@@ -187,23 +207,23 @@ const SignUpPage: React.FC = () => {
           <button
             type="submit"
             className={`w-full bg-blue-600 text-white py-4 px-6 rounded-md hover:bg-blue-700 transition duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? 'Signing Up...' : 'Sign Up'}
           </button>
           <div className="mt-6 space-y-4">
             <button
               onClick={handleGoogleSignIn}
-              className="flex items-center justify-center bg-red-500 text-white py-4 px-6 rounded-md w-full hover:bg-red-600 transition duration-300"
+              className="flex items-center justify-center bg-red-600 text-white py-4 px-6 rounded-md w-full hover:bg-red-700 transition duration-300"
             >
-              <FontAwesomeIcon icon={faGoogle} className="mr-2 text-white" />
+              <FontAwesomeIcon icon={faGoogle} className="mr-2" />
               Sign Up with Google
             </button>
             <button
               onClick={handleFacebookSignIn}
               className="flex items-center justify-center bg-blue-600 text-white py-4 px-6 rounded-md w-full hover:bg-blue-700 transition duration-300"
             >
-              <FontAwesomeIcon icon={faFacebook} className="mr-2 text-white" />
+              <FontAwesomeIcon icon={faFacebook} className="mr-2" />
               Sign Up with Facebook
             </button>
           </div>
