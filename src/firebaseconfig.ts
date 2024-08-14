@@ -14,7 +14,6 @@ const firebaseConfig = {
   measurementId: "G-0W9NXVPGJ6"
 };
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -22,4 +21,11 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
-export { auth, db, googleProvider, facebookProvider };
+let analytics;
+isSupported().then((supported) => {
+  if (supported) {
+    analytics = getAnalytics(app);
+  }
+});
+
+export { auth, db, googleProvider, facebookProvider, analytics };
