@@ -1,5 +1,5 @@
 import '@styles/globals.css';
-import NavLinks from '@components/navbar/links/navLinks/navLinks';
+import NavLinks from '@components/navbar/links/navlinks/navlinks'
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -13,7 +13,7 @@ const Links = () => {
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
     { title: 'Search', path: '/search' },
-    { title: 'Export', path: '/Export' },
+    { title: 'Sign up', path: '/signup' },
     { title: 'Share', path: '/share' },
     { title: 'Contact', path: '/contact' },
   ];

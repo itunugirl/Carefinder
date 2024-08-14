@@ -18,6 +18,9 @@
       }
     ],
     "paths": {
+      "@utils/*": ["./src/utils/*"],
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
       "@*": ["./src/*"]
     }
   },

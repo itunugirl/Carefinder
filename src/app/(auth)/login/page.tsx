@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, facebookProvider } from '@/firebaseConfig';
+import { auth, googleProvider, facebookProvider } from '@firebaseConfig';
 import { useRouter } from 'next/navigation';
 import Head from 'next/head';
 import Image from 'next/image';
