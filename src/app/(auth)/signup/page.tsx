@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signInWithPopup } from 'firebase/auth';
-import { auth, db, googleProvider, facebookProvider } from '@firebaseconfig';
+import { auth, db, googleProvider, facebookProvider } from '@firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { FirebaseError } from 'firebase/app';
@@ -36,14 +36,12 @@ const SignUpPage: React.FC = () => {
       return;
     }
     
-    // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address.");
       return;
     }
     
-    // Basic phone number validation (optional)
     const phoneRegex = /^[0-9]*$/;
     if (phoneNumber && !phoneRegex.test(phoneNumber)) {
       setError("Phone number can only contain numbers.");
@@ -65,9 +63,9 @@ const SignUpPage: React.FC = () => {
         gender,
       });
 
-      await sendEmailVerification(userCredential.user); // Send verification email
+      await sendEmailVerification(userCredential.user); 
 
-      router.push("/login"); // Redirect to login page
+      router.push("/login"); 
     } catch (error) {
       console.error("Sign up error:", error); 
       if (error instanceof FirebaseError) {
@@ -119,8 +117,8 @@ const SignUpPage: React.FC = () => {
           <Image 
             src="/assets/images/Sign-up.png" 
             alt="Sign Up Image"
-            layout="fill"
-            objectFit="contain"
+            fill
+            style={{ objectFit: 'contain' }}
             className="absolute inset-0"
           />
         </div>
@@ -203,16 +201,17 @@ const SignUpPage: React.FC = () => {
             className="w-full p-4 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
-          {error && <p className="text-red-500 mb-4">{error}</p>}
+          {error && <p className="text-red-500">{error}</p>}
           <button
             type="submit"
-            className={`w-full bg-blue-600 text-white py-4 px-6 rounded-md hover:bg-blue-700 transition duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={loading}
+            className={`w-full py-4 px-6 text-white bg-blue-600 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            {loading ? 'Signing Up...' : 'Sign Up'}
+            {loading ? "Signing up..." : "Sign Up"}
           </button>
-          <div className="mt-6 space-y-4">
+          <div className="flex items-center justify-center space-x-4">
             <button
+              type="button"
               onClick={handleGoogleSignIn}
               className="flex items-center justify-center bg-red-600 text-white py-4 px-6 rounded-md w-full hover:bg-red-700 transition duration-300"
             >
@@ -220,6 +219,7 @@ const SignUpPage: React.FC = () => {
               Sign Up with Google
             </button>
             <button
+              type="button"
               onClick={handleFacebookSignIn}
               className="flex items-center justify-center bg-blue-600 text-white py-4 px-6 rounded-md w-full hover:bg-blue-700 transition duration-300"
             >
