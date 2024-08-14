@@ -1,11 +1,9 @@
 import '@styles/globals.css';
 import Nav from '@components/navbar/navbar';
 import Footer from '@components/footer/footer';
+import { metadata } from './metadata';
 
-export const metadata = {
-  title: "MedEase",
-  description: "Your health services companion"
-};
+
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

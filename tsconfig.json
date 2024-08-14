@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,12 +18,26 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["src/utils/*"],
+      "@app/*": ["src/app/*"],
       "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
-      "@/*": ["src/*"]
-    }
+      "@*": ["src/*"],
+      "@firebaseConfig/*": ["src/firebase/*"] // Add this line
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
