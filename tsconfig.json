@@ -19,7 +19,8 @@
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
       "@*": ["src/*"],
-      "@firebaseConfig/*": ["src/firebase/*"]
+      "@firebaseConfig/*": ["firebaseConfig"],
+      "metaData": ["src/data/metaData"],
     },
     "plugins": [{ "name": "next" }]
   },

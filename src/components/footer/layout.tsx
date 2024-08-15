@@ -1,8 +1,8 @@
 // src/app/layout.tsx
 
 import '@styles/globals.css';
-import Nav from '@components/navbar/Navbar';
-import Footer from '@components/footer/Footer';
+import Nav from '@components/navbar/navbar';
+import Footer from '@components/footer/footer';
 
 // Metadata export for server components
 export const metadata = {

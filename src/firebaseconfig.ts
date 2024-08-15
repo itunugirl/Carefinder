@@ -1,7 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { isSupported, getAnalytics } from "firebase/analytics";
+import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { isSupported, getAnalytics } from 'firebase/analytics';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,16 +16,23 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication and Firestore
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+// Initialize authentication providers
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
+// Conditionally initialize Analytics only in the browser environment
 let analytics;
-isSupported().then((supported) => {
-  if (supported) {
-    analytics = getAnalytics(app);
-  }
-});
+if (typeof window !== 'undefined') {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  });
+}
 
 export { auth, db, googleProvider, facebookProvider, analytics };
