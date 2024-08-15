@@ -1,38 +1,124 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { FaRegLightbulb } from 'react-icons/fa';
+import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
+import About from '@app/about/page'; // Import the About component
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalClass, setModalClass] = useState('');
+  const router = useRouter(); // Initialize useRouter
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setModalClass('fade-in');
+    } else {
+      setModalClass('fade-out');
+    }
+  }, [isModalOpen]);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleStartExploring = () => {
+    closeModal(); // Optionally close the modal before navigation
+    router.push('/signup'); // Navigate to the sign-up page
+  };
+
   return (
-    <div className='flex gap-[80px]'>
-      <div className='flex flex-col gap-[20px] flex-1'>
-        <h1 className='text-[70px]'>
-          Simplify Your Healthcare Journey with MedEase.
-        </h1>
-        <h3 className='home_subtitle text-[40px] Blue_gradient'>
-          Find, export, and share hospital information effortlessly.
-        </h3>
-        <p className='home_desc text-[20px]'>
-          MedEase simplifies healthcare access in Nigeria by helping users find, export, and share hospital information. Our user-friendly platform ensures you have all necessary hospital details at your fingertips, enhancing your healthcare experience.
-        </p>
-        <div className='home_buttons flex gap-[30px]'>
-          <button className='home_button p-[12px] min-w-[140px] cursor-pointer border-none rounded-[6px] bg-{blue} text-[#your-text-color]'>
-            Get Started
-          </button>
-          <button className='home_button p-[12px] min-w-[140px] cursor-pointer border-none rounded-[6px] bg-[black] text-[white]'>
-            Learn More
-          </button>
+    <div className='flex flex-col p-4 sm:p-6 md:p-8 lg:p-12'>
+      {/* Main Content */}
+      <div className='flex flex-col md:flex-row gap-6 sm:gap-4 mb-12'>
+        {/* Text Content */}
+        <div className='flex flex-col gap-6 md:gap-8 flex-1'>
+          <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400 mb-4 sm:mb-5 md:mb-6 lg:mb-8'>
+            Simplify Your Healthcare Journey with MedEase
+          </h1>
+          <h3 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 sm:mb-3 md:mb-4 lg:mb-6'>
+            Find, export, and share hospital information effortlessly
+          </h3>
+          <p className='text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-6 sm:mb-4 md:mb-5 lg:mb-6 leading-relaxed'>
+            MedEase simplifies healthcare access in Nigeria by helping users find, export, and share hospital information. Our user-friendly platform ensures you have all necessary hospital details at your fingertips, enhancing your healthcare experience.
+          </p>
+          <div className='flex flex-col sm:flex-row gap-4 sm:gap-2'>
+            <button 
+              onClick={openModal} 
+              className='p-3 sm:p-2 min-w-[140px] cursor-pointer border-none rounded bg-blue-600 text-white hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg'>
+              Get Started
+            </button>
+          </div>
+        </div>
+
+        {/* Image */}
+        <div className='relative hidden md:block w-full md:w-1/2 h-56 sm:h-64 md:h-80 lg:h-[400px]'>
+          <Image 
+            src='/assets/images/healthCare-3.gif' 
+            alt='Healthcare Animation' 
+            layout='fill' 
+            className='object-cover'
+          />
         </div>
       </div>
-      <div className='flex-1 relative w-full h-[500px]'>
-        <Image 
-          src='/assets/images/healthCare-3.gif' 
-          alt='Healthcare Animation' 
-          layout='fill' 
-          className='object-cover'
-          unoptimized
-        />
-      </div>
+
+      {/* About Section */}
+      <section className='relative bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 py-12 px-6 sm:px-8 md:px-10 lg:px-12 rounded-lg shadow-lg overflow-hidden'>
+        <div className='absolute inset-0 bg-gradient-to-r from-blue-500 to-teal-400 opacity-30'></div>
+        <div className='relative max-w-4xl mx-auto z-10'>
+          <div className='flex items-center mb-6'>
+            <div className='w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4'>
+              <FaRegLightbulb className='w-8 h-8'/>
+            </div>
+            <h2 className='text-3xl sm:text-4xl font-bold text-gray-800'>
+              Welcome to MedEase
+            </h2>
+          </div>
+          <p className='text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed text-center mb-8'>
+            MedEase is dedicated to making healthcare accessible and straightforward. Our platform offers a seamless way to find, export, and share comprehensive hospital information. With a focus on user experience, we ensure that healthcare details are always within your reach, helping you make informed decisions and improving your overall healthcare journey.
+          </p>
+          <div className='flex justify-center'>
+            <a 
+              href='#' 
+              className='inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg'>
+              Discover More
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
+          <div 
+            className={`bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg w-full max-w-md relative overflow-hidden ${modalClass}`}
+          >
+            <button 
+              onClick={closeModal} 
+              className='absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-lg sm:text-base'>
+              &times;
+            </button>
+            <h2 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-3'>
+              Welcome to MedEase
+            </h2>
+            <p className='mb-4 sm:mb-3 md:mb-4 lg:mb-5'>
+              Discover how MedEase can transform your healthcare experience. 
+              <br /> 
+              Get access to detailed hospital information and more with just a few clicks.
+            </p>
+            <button 
+              onClick={handleStartExploring} // Use the new function
+              className='w-full p-3 sm:p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors'>
+              Start Exploring
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Render the About component */}
+      <About />
     </div>
-  )
+  );
 }
 
 export default Home;

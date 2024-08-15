@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, User } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider, facebookProvider } from '@firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { FirebaseError } from 'firebase/app';
@@ -97,15 +97,15 @@ const LoginPage: React.FC = () => {
           <Image 
             src="/assets/images/login.png" 
             alt="Login Image"
-            layout="fill"
-            objectFit="contain"
+            fill
+            style={{ objectFit: 'contain' }}
             className="absolute inset-0"
           />
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
         <form onSubmit={handleLogin} className="space-y-6 w-full max-w-md md:max-w-4xl bg-white p-6 md:p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6">Login</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6">Sign in to medEase</h1>
           <input
             type="email"
             value={email}
@@ -133,6 +133,7 @@ const LoginPage: React.FC = () => {
           <div className="mt-6 space-y-4">
             <button
               onClick={handleGoogleSignIn}
+              aria-label="Log in with Google"
               className="flex items-center justify-center bg-red-600 text-white py-4 px-6 rounded-md w-full hover:bg-red-700 transition duration-300"
             >
               <FontAwesomeIcon icon={faGoogle} className="mr-2" />
@@ -140,6 +141,7 @@ const LoginPage: React.FC = () => {
             </button>
             <button
               onClick={handleFacebookSignIn}
+              aria-label="Log in with Facebook"
               className="flex items-center justify-center bg-blue-600 text-white py-4 px-6 rounded-md w-full hover:bg-blue-700 transition duration-300"
             >
               <FontAwesomeIcon icon={faFacebook} className="mr-2" />
