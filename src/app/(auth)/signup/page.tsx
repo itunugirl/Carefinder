@@ -11,16 +11,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const SignUpPage: React.FC = () => {
-  const [surname, setSurname] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [surname, setSurname] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false); 
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -108,7 +108,7 @@ const SignUpPage: React.FC = () => {
     }
   };
 
-  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+  const togglePasswordVisibility = () => setPasswordVisible(prev => !prev);
 
   return (
     <div className="flex min-h-screen bg-blue-gradient md:bg-gray-100">
@@ -205,26 +205,27 @@ const SignUpPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-4 px-6 text-white bg-blue-600 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full py-4 px-6 text-white bg-blue-600 rounded-md text-lg font-semibold ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"}`}
           >
-            {loading ? "Signing up..." : "Sign Up"}
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
-          <div className="flex items-center justify-center space-x-4">
+          <div className="text-center text-gray-600">
+            <p>Already have an account? <a href="/login" className="text-blue-500 hover:underline">Log in</a></p>
+          </div>
+          <div className="flex justify-center space-x-4 mt-4">
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="flex items-center justify-center bg-red-600 text-white py-4 px-6 rounded-md w-full hover:bg-red-700 transition duration-300"
+              className="flex items-center justify-center p-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
             >
-              <FontAwesomeIcon icon={faGoogle} className="mr-2" />
-              Sign Up with Google
+              <FontAwesomeIcon icon={faGoogle} className="text-blue-500 w-6 h-6" />
             </button>
             <button
               type="button"
               onClick={handleFacebookSignIn}
-              className="flex items-center justify-center bg-blue-600 text-white py-4 px-6 rounded-md w-full hover:bg-blue-700 transition duration-300"
+              className="flex items-center justify-center p-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
             >
-              <FontAwesomeIcon icon={faFacebook} className="mr-2" />
-              Sign Up with Facebook
+              <FontAwesomeIcon icon={faFacebook} className="text-blue-700 w-6 h-6" />
             </button>
           </div>
         </form>

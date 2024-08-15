@@ -1,16 +1,15 @@
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'example.com', // Replace with your domain
+        hostname: 'fonts.googleapis.com',
         port: '',
-        pathname: '/path/to/images/**', // Adjust as necessary
+        pathname: '/css2?family=Satoshi:wght@100;200;300;400;500;600;700;800;900&display=swap',
       },
     ],
   },
-  // Any other Next.js configuration options can go here
 };
 
 module.exports = nextConfig;

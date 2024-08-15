@@ -29,6 +29,23 @@ module.exports = {
         'gradient-custom': 'linear-gradient(to right, #B5E2F0, #F8D7DA)',
       
       },
+      width: {
+        '1536': '1536px',
+        '1366': '1366px',
+        '1280': '1280px',
+        '1024': '1024px',
+        '768': '768px',
+        '640': '640px',
+        '475': '475px',
+      },
+      padding: {
+        'container': '50px',
+        'container-sm': '20px',
+      },
+      zIndex: {
+        '1': '1',
+        '2': '2',
+      },
     },
   },
   plugins: [],
