@@ -3,7 +3,6 @@
 import '@styles/globals.css';
 import Nav from '@components/navbar/navbar';
 import Footer from '@components/footer/footer';
-
 // Metadata export for server components
 export const metadata = {
   title: "MedEase",

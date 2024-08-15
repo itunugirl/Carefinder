@@ -18,9 +18,9 @@
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
-      "@*": ["src/*"],
-      "@firebaseConfig/*": ["firebaseConfig"],
+      "@firebaseConfig": ["src/firebaseConfig.ts"],
       "metaData": ["src/data/metaData"],
+      "@*": ["src/*"]
     },
     "plugins": [{ "name": "next" }]
   },
