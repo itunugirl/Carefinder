@@ -10,7 +10,7 @@ const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-white shadow-md'>
+    <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-gray-200 shadow-md rounded-b-lg'>
       {/* Container for Logo and Toggle Button */}
       <div className='flex items-center justify-between w-full md:w-auto'>
         {/* Logo and Brand Name */}
@@ -52,7 +52,7 @@ const Nav = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div id="mobile-menu" className='md:hidden fixed top-full right-0 bg-gradient-to-b from-blue-400 to-blue-600 text-white shadow-lg w-full p-6 z-50'>
+        <div id="mobile-menu" className='md:hidden fixed top-full right-0 bg-gray-800 text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
           <div className='flex flex-col space-y-4'>
             <Links />
           </div>
