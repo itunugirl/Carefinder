@@ -7,8 +7,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'fonts.googleapis.com',
         port: '',
-        pathname: '/css2?family=Roboto:wght@100;300;400;500;700;900&family=EB+Garamond:wght@400;700&family=Nunito:wght@200;400;600;800;1000&display=swap',
+        pathname: '/css2/**', // You can use wildcard to match any path
       },
+      {
+        protocol: 'https',
+        hostname: 'i.postimg.cc', // Only the domain name
+        port: '',
+        pathname: '/6qysBHBj/medease_logo.png', // Correct path for the image
+      }
       // Add other patterns if necessary
     ],
   },
