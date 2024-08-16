@@ -21,7 +21,6 @@ const Nav = () => {
             width={40}
             height={40}
             className="object-contain"
-            layout="intrinsic"
           />
           <p className="text-xl md:text-2xl font-bold text-gray-800 hidden lg:block">MedEase</p>
         </Link>
@@ -32,6 +31,7 @@ const Nav = () => {
           onClick={() => setIsMenuOpen(prev => !prev)}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMenuOpen ? (
             <svg className='w-6 h-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -52,16 +52,7 @@ const Nav = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div id="mobile-menu" className='md:hidden absolute top-full right-0 bg-gradient-to-b from-blue-400 to-blue-600 text-white shadow-lg w-full p-6 z-50'>
-          <button
-            className='absolute top-4 right-4 text-white'
-            onClick={() => setIsMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <svg className='w-6 h-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        <div id="mobile-menu" className='md:hidden fixed top-full right-0 bg-gradient-to-b from-blue-400 to-blue-600 text-white shadow-lg w-full p-6 z-50'>
           <div className='flex flex-col space-y-4'>
             <Links />
           </div>

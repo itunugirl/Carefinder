@@ -1,4 +1,4 @@
-/* Import statements */
+/* styles/globals.css */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=EB+Garamond:wght@400;700&family=Nunito:wght@200;400;600;800;1000&display=swap');
 
 /* Tailwind directives */
@@ -15,7 +15,39 @@
   padding: 0;
 }
 body {
-  font-family: 'Roboto', 'EB+Garamond', 'nunito', sans-serif;
+  font-family: 'Roboto', 'EB+Garamond', 'Nunito', sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+  @apply bg-[#0ea9e7] h-[50px] p-2;
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-home {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-home {
+    display: block;
+  }
+}
+
+@media (min-width: 1290px) and (max-width: 1300px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-home {
+    display: block;
+  }
 }
 
 /* Main container */
@@ -113,13 +145,6 @@ body {
   .Blue_gradient {
     @apply bg-gradient-to-r from-blue-500 via-blue-600 to-sky-500 bg-clip-text text-transparent;
   }
-}
-
-
-
-/* Navbar styles */
-.navbar {
-  @apply bg-[#0ea9e7] h-[50px] p-2;
 }
 
 /* Footer styles */
