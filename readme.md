@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MedEase - Carefinder
 
-## Getting Started
+MedEase (Carefinder) is a simple yet powerful tool designed to make access to healthcare information in Nigeria easier. It helps users find, export, and share hospital details within their region, ensuring that critical healthcare information is just a few clicks away.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 1. Hospital Search
+- **Find Hospitals:** Users can search for hospitals within their region by inputting their location or selecting from a list of nearby cities. The platform will provide a list of hospitals along with their contact details, including address, phone number, and email.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Export Hospitals
+- **Save Information:** Users can export the list of hospitals to a CSV file, making it easy to save and share hospital details. This feature leverages Firebase's built-in file storage.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Share Hospitals
+- **Share Information:** Users can share the list of hospitals with others via email or by generating a shareable link. This feature is implemented using Firebase's email and link-sharing functionalities.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4. User Authentication
+- **Secure Access:** Admin users must create an account to access the platform's admin features. This feature is implemented using Firebase's authentication system, supporting multiple methods like email/password and social media logins.
 
-## Learn More
+### 5. Markdown Support
+- **Content Creation:** Admin users can create and format hospital entries using markdown syntax. The platform includes a simple text editor that supports markdown, making it easy to add links, format content, and insert images.
 
-To learn more about Next.js, take a look at the following resources:
+## Requirements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To ensure the project meets best practices, the following are required:
+1. **Scalable Codebase:** The codebase should be scalable with proper linting and formatting using Prettier and ESLint.
+2. **TypeScript with React or Vue.js:** Use TypeScript in combination with either React or Vue.js to build the frontend. Ensure the application is optimized for SEO.
+3. **Backend Technology:** Implement the backend using Firebase, Hasura, or any suitable technology that supports user data storage and authentication.
+4. **Form Validation:** Implement robust form validation to ensure data integrity.
+5. **Markdown Support:** Admin users must be able to write content using markdown syntax.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
