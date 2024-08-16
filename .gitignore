@@ -1,1 +1,21 @@
-node_modules
+# Dependency directories
+node_modules/
+
+# Environment files
+.env.local
+
+# Build output
+.next/
+out/
+dist/
+
+# Log files
+*.log
+
+# IDE and Editor files
+.vscode/
+.idea/
+
+# Miscellaneous
+.DS_Store
+*.pem
