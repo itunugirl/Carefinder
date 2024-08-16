@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import ShareButton from '@components/shareButtons';
 import { exportToCSV } from '@utils/exportCSV';
+import axios from 'axios';
 
 interface Hospital {
   id: number;
@@ -45,20 +46,24 @@ const SearchPage: React.FC = () => {
     setMessage(null);
 
     try {
-      const response = await fetch(`https://api.reliancehmo.com/v3/providers`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data: ApiResponse = await response.json();
-      if (data.status === 'success') {
-        const searchResults = data.data.filter((hospital) =>
-          hospital.address.toLowerCase().includes(query.toLowerCase()) || 
-          hospital.name.toLowerCase().includes(query.toLowerCase())
-        );
-        setResults(searchResults);
-        setFilteredResults(searchResults);
+      const response = await axios.get<ApiResponse>(`https://api.reliancehmo.com/v3/providers`);
+      if (response.status === 200) {
+        const data = response.data;
+        if (data.status === 'success') {
+          const searchResults = data.data.filter((hospital) =>
+            hospital.address.toLowerCase().includes(query.toLowerCase()) ||
+            hospital.name.toLowerCase().includes(query.toLowerCase())
+          );
+          setResults(searchResults);
+          setFilteredResults(searchResults);
+          if (searchResults.length === 0) {
+            setMessage('No results found. Try another search.');
+          }
+        } else {
+          setError('No results found. Please try again later.');
+        }
       } else {
-        setError('No results found. Please try again later.');
+        setError('Failed to fetch data. Please try again later.');
       }
     } catch (error) {
       setError('Failed to fetch data. Please try again later.');
@@ -93,17 +98,20 @@ const SearchPage: React.FC = () => {
   };
 
   const formatAddressForMap = (address: string) => {
-    return encodeURIComponent(address);
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   };
 
   const shareUrl = (hospital: Hospital) => {
-    const hospitalUrl = `https://www.example.com/hospitals/${hospital.id}`;
+    const hospitalUrl = `https://carefinder-medease.vercel.app/hospitals/${hospital.id}`;
+    const encodedUrl = encodeURIComponent(hospitalUrl);
+    const encodedMessage = encodeURIComponent(`Check out this hospital: ${hospital.name}, located at ${hospital.address}.`);
+  
     return {
-      whatsapp: `https://api.whatsapp.com/send?text=Check out this hospital: ${hospitalUrl}`,
-      instagram: `https://www.instagram.com/share?url=${encodeURIComponent(hospitalUrl)}`,
-      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(hospitalUrl)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(hospitalUrl)}`,
-      email: `mailto:?subject=Hospital Information&body=Check out this hospital: ${hospitalUrl}`,
+      whatsapp: `https://api.whatsapp.com/send?text=${encodedMessage} ${encodedUrl}`,
+      instagram: `https://www.instagram.com/share?url=${encodedUrl}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedMessage}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      email: `mailto:?subject=Hospital Information&body=${encodedMessage} ${hospitalUrl}`,
     };
   };
 
@@ -128,7 +136,7 @@ const SearchPage: React.FC = () => {
         <title>Search Hospitals</title>
         <meta name="description" content="Find hospitals near you with MedEase." />
       </Head>
-      <main className="min-h-screen flex flex-col items-center p-6 bg-gradient-light-blue">
+      <main className="min-h-screen flex flex-col items-center p-6 bg-gradient-to-r from-blue-200 to-blue-400">
         <section className="bg-white rounded-lg shadow-lg max-w-3xl w-full p-8 mb-12">
           <h1 className="text-4xl font-bold text-blue-800 mb-4 text-center">Find Your Nearest Hospitals</h1>
           <p className="text-lg text-gray-700 mb-6 text-center">Enter the name or location to find hospitals near you.</p>
@@ -208,42 +216,38 @@ const SearchPage: React.FC = () => {
             {filteredResults.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
                 {filteredResults.map((hospital) => (
-                  <div key={hospital.id} className="bg-white border border-gray-300 rounded-lg p-6 shadow-md hover:shadow-xl transition">
-                    <h3 className="text-xl font-semibold mb-2">
-                      <a href={`https://www.example.com/hospitals/${hospital.id}`} className="text-blue-700 hover:underline" aria-label={`View details for ${hospital.name}`}>
-                        {hospital.name}
+                  <div key={hospital.id} className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-md transition-transform transform hover:scale-105 hover:bg-blue-100 hover:shadow-lg hover:z-10">
+                    <h3 className="text-2xl font-semibold text-blue-800 mb-2">{hospital.name}</h3>
+                    <p className="text-lg mb-2">
+                      <span className="font-bold">Address:</span> 
+                      <a 
+                        href={formatAddressForMap(hospital.address)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline hover:text-blue-700"
+                      >
+                        {hospital.address}
                       </a>
-                    </h3>
-                    <p className="text-gray-600 mb-2">{hospital.address}</p>
-                    <p className="text-gray-600 mb-2">{hospital.phone_number}</p>
-                    <p className="text-gray-600 mb-2">{hospital.state.name}</p>
-                    <p className="text-gray-600 mb-4">{hospital.type.name}</p>
-                    <div className="flex justify-center space-x-2">
-                    {Object.entries(shareUrl(hospital)).map(([platform, url]) => (
-                        <ShareButton
-                          key={platform}
-                          platform={platform}
-                          url={url}
-                          color={
-                            platform === 'whatsapp'
-                              ? 'text-green-500'
-                              : platform === 'instagram'
-                              ? 'text-pink-500'
-                              : platform === 'twitter'
-                              ? 'text-blue-400'
-                              : platform === 'facebook'
-                              ? 'text-blue-600'
-                              : 'text-gray-600'
-                          }
-                          aria-label={`Share ${hospital.name} on ${platform}`}
-                        />
+                    </p>
+                    <p className="text-lg mb-2">
+                      <span className="font-bold">Phone:</span> {hospital.phone_number}
+                    </p>
+                    <p className="text-lg mb-2">
+                      <span className="font-bold">State:</span> {hospital.state.name}
+                    </p>
+                    <p className="text-lg mb-4">
+                      <span className="font-bold">Type:</span> {hospital.type.name}
+                    </p>
+                    <div className="absolute bottom-4 left-4 flex space-x-2">
+                      {Object.entries(shareUrl(hospital)).map(([platform, url]) => (
+                        <ShareButton key={platform} platform={platform} url={url} />
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              !loading && <p className="text-center text-gray-600">No hospitals found.</p>
+              <p className="text-center text-gray-600">No hospitals found.</p>
             )}
           </section>
         )}

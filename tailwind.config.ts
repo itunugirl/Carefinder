@@ -1,3 +1,4 @@
+// tailwind.config.js
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -9,8 +10,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        satoshi: ['Satoshi', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'nunito': ['Nunito', 'sans-serif'],
+        'garamond': ['EB Garamond', 'serif'],
       },
       colors: {
         'blue-sky': '#0EA9E7',
@@ -21,13 +23,12 @@ module.exports = {
         'whatsapp': '#25D366',
         'twitter': '#1DA1F2',
         'facebook': '#1877F2',
-        'email': '#D14836', 
+        'email': '#D14836',
       },
       backgroundImage: {
         'gradient-light-blue': 'linear-gradient(to right, #B5E2F0, #0EA9E7)',
         'blue-gradient': 'linear-gradient(to right, #B5E2F0, #0EA9E7)',
         'gradient-custom': 'linear-gradient(to right, #B5E2F0, #F8D7DA)',
-      
       },
       width: {
         '1536': '1536px',
@@ -45,6 +46,11 @@ module.exports = {
       zIndex: {
         '1': '1',
         '2': '2',
+      },
+      screens: {
+        'lg': '1280px',
+        'md': '1024px',
+        'custom': '1300px',
       },
     },
   },
