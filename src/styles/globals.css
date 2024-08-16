@@ -1,9 +1,5 @@
 /* Import statements */
-@import '~slick-carousel/slick/slick';
-@import '~slick-carousel/slick/slick-theme';
-@import './fonts.css';@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=EB+Garamond:wght@400;700&family=Nunito:wght@200;400;600;800;1000&display=swap');
 
 /* Tailwind directives */
 @tailwind base;
@@ -19,7 +15,7 @@
   padding: 0;
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', 'EB+Garamond', 'nunito', sans-serif;
 }
 
 /* Main container */
@@ -79,20 +75,20 @@ body {
     @apply fixed top-[100px] right-0 w-[50%] h-[calc(100vh-100px)] bg-white flex flex-col items-center justify-center gap-2.5;
   }
 }
+
 @media (max-width: 1024px) {
   .md\\:flex {
-    display: block; /* Ensure elements are displayed as block on smaller screens */
+    display: block;
   }
   
   .md\\:hidden {
-    display: block; /* Ensure elements are visible on smaller screens */
+    display: block;
   }
   
   .mobile-menu {
-    width: 100vw; /* Ensure the mobile menu fits within the viewport */
+    width: 100vw;
   }
 }
-
 
 /* App container */
 .app {
@@ -119,18 +115,7 @@ body {
   }
 }
 
-/* Form styles */
-.search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
-}
 
-.form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
-}
-
-.form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
-}
 
 /* Navbar styles */
 .navbar {
@@ -206,8 +191,6 @@ body {
 .contact_button {
   @apply text-button-white h-12;
 }
-
-
 
 @keyframes fadeIn {
   from {
