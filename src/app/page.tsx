@@ -54,7 +54,7 @@ const Home = () => {
         {/* Image */}
         <div className='relative hidden md:block w-full md:w-1/2 h-56 sm:h-64 md:h-80 lg:h-[400px]'>
           <Image 
-            src='/assets/images/healthCare-3.gif' 
+            src='https://i.postimg.cc/ZK0cLWYh/healthcare-3.gif' 
             alt='Healthcare Animation' 
             layout='fill' 
             className='object-cover'

@@ -13,8 +13,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'i.postimg.cc', // Only the domain name
         port: '',
-        pathname: '/6qysBHBj/medease-logo.png', // Correct path for the image
-      }
+        pathname: '/**', // Correct path for the image
+      },
+     
       // Add other patterns if necessary
     ],
   },
