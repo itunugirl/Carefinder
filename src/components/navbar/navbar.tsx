@@ -16,7 +16,7 @@ const Nav = () => {
         {/* Logo and Brand Name */}
         <Link href="/" className='flex items-center gap-2 md:gap-3'>
           <Image
-            src="https://postimg.cc/V0QZRWrn/2d23f80a/medEase_logo.png"
+            src="https://i.postimg.cc/6qysBHBj/medease-logo.png"
             alt="MedEase logo"
             width={40}
             height={40}
