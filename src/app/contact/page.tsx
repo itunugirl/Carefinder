@@ -60,10 +60,10 @@ const ContactPage: React.FC = () => {
       <div className="relative flex-1 hidden md:block">
         <div className="relative w-full h-full">
           <Image
-            src="/assets/images/contact-Me-2.png"
+            src="https://i.postimg.cc/mZ50Gzrm/contact-me-2.png"
             alt="Contact Image"
             fill
-            style={{ objectFit: 'contain' }} // Changed to cover to ensure image covers the container
+            style={{ objectFit: 'contain' }}
             className="absolute inset-0"
           />
         </div>

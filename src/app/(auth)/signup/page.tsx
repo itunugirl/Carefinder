@@ -115,7 +115,7 @@ const SignUpPage: React.FC = () => {
       <div className="relative flex-1 hidden md:block">
         <div className="relative w-full h-full">
           <Image 
-            src="/assets/images/Sign-up.png" 
+            src="https://i.postimg.cc/QMv0y5m7/sign-up.png" 
             alt="Sign Up Image"
             fill
             style={{ objectFit: 'contain' }}
