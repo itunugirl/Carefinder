@@ -9,8 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        satoshi: ['Satoshi', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'nunito': ['Nunito', 'sans-serif'],
+        'garamond': ['EB Garamond', 'serif'],
       },
       colors: {
         'blue-sky': '#0EA9E7',

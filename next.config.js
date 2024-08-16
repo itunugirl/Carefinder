@@ -7,14 +7,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'fonts.googleapis.com',
         port: '',
-        pathname: '/css2?family=Open+Sans:wght@300;400&display=swap',
+        pathname: '/css2?family=Roboto:wght@100;300;400;500;700;900&family=EB+Garamond:wght@400;700&family=Nunito:wght@200;400;600;800;1000&display=swap',
       },
-      {
-        protocol: 'https',
-        hostname: '', // Update this if needed
-        port: '',
-        pathname: '', // Adjust as needed
-      },
+      // Add other patterns if necessary
     ],
   },
   webpack: (config) => {
