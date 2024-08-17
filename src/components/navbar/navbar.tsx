@@ -2,14 +2,16 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Links from '@components/navbar/links/links';
+import Links from '@components/navbar/links/Links'; // Ensure this is correctly imported
 import { useState } from 'react';
 import { useAuth } from '@contexts/AuthContext'; // Import useAuth
+import { usePathname } from 'next/navigation'; // Import usePathname
 import '@styles/globals.css';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, logout, userRole } = useAuth(); // Access authentication status and user role
+  const pathname = usePathname(); // Get current pathname
 
   return (
     <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-gray-200 shadow-md rounded-b-lg'>
@@ -52,11 +54,19 @@ const Nav = () => {
         <Links />
         {isAuthenticated && (
           <>
-            <Link href="/search" className="text-gray-800 hover:text-gray-600" aria-current={window.location.pathname === '/search' ? 'page' : undefined}>
+            <Link
+              href="/search"
+              className={`text-gray-800 hover:text-gray-600 ${pathname === '/search' ? 'font-bold' : ''}`}
+              aria-current={pathname === '/search' ? 'page' : undefined}
+            >
               Search
             </Link>
             {userRole === 'admin' && (
-              <Link href="/admin" className="text-gray-800 hover:text-gray-600" aria-current={window.location.pathname === '/admin' ? 'page' : undefined}>
+              <Link
+                href="/admin"
+                className={`text-gray-800 hover:text-gray-600 ${pathname === '/admin' ? 'font-bold' : ''}`}
+                aria-current={pathname === '/admin' ? 'page' : undefined}
+              >
                 Admin Dashboard
               </Link>
             )}
@@ -77,11 +87,19 @@ const Nav = () => {
             <Links />
             {isAuthenticated && (
               <>
-                <Link href="/search" className="text-white hover:text-gray-300" aria-current={window.location.pathname === '/search' ? 'page' : undefined}>
+                <Link
+                  href="/search"
+                  className={`text-white hover:text-gray-300 ${pathname === '/search' ? 'font-bold' : ''}`}
+                  aria-current={pathname === '/search' ? 'page' : undefined}
+                >
                   Search
                 </Link>
                 {userRole === 'admin' && (
-                  <Link href="/admin" className="text-white hover:text-gray-300" aria-current={window.location.pathname === '/admin' ? 'page' : undefined}>
+                  <Link
+                    href="/admin"
+                    className={`text-white hover:text-gray-300 ${pathname === '/admin' ? 'font-bold' : ''}`}
+                    aria-current={pathname === '/admin' ? 'page' : undefined}
+                  >
                     Admin Dashboard
                   </Link>
                 )}
