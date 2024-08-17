@@ -14,10 +14,10 @@ const Links = () => {
   const navLinks: NavLink[] = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
+    { title: 'Contact', path: '/contact' },
+    { title: 'Services', path: '/services' },
     { title: 'Search', path: '/search' },
     { title: 'Sign up', path: '/signup' },
-    { title: 'Share', path: '/share' },
-    { title: 'Contact', path: '/contact' },
   ];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);

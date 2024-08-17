@@ -4,10 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Links from '@components/navbar/links/links';
 import { useState } from 'react';
+import { useAuth } from '@contexts/AuthContext'; // Import useAuth
 import '@styles/globals.css';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout, userRole } = useAuth(); // Access authentication status and user role
 
   return (
     <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-gray-200 shadow-md rounded-b-lg'>
@@ -48,6 +50,24 @@ const Nav = () => {
       {/* Desktop Links */}
       <div className='hidden md:flex flex-wrap space-x-4 md:space-x-6'>
         <Links />
+        {isAuthenticated && (
+          <>
+            <Link href="/search" className="text-gray-800 hover:text-gray-600" aria-current={window.location.pathname === '/search' ? 'page' : undefined}>
+              Search
+            </Link>
+            {userRole === 'admin' && (
+              <Link href="/admin" className="text-gray-800 hover:text-gray-600" aria-current={window.location.pathname === '/admin' ? 'page' : undefined}>
+                Admin Dashboard
+              </Link>
+            )}
+            <button
+              onClick={logout}
+              className="text-gray-800 hover:text-gray-600"
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
 
       {/* Mobile menu */}
@@ -55,6 +75,24 @@ const Nav = () => {
         <div id="mobile-menu" className='md:hidden fixed top-full right-0 bg-gray-800 text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
           <div className='flex flex-col space-y-4'>
             <Links />
+            {isAuthenticated && (
+              <>
+                <Link href="/search" className="text-white hover:text-gray-300" aria-current={window.location.pathname === '/search' ? 'page' : undefined}>
+                  Search
+                </Link>
+                {userRole === 'admin' && (
+                  <Link href="/admin" className="text-white hover:text-gray-300" aria-current={window.location.pathname === '/admin' ? 'page' : undefined}>
+                    Admin Dashboard
+                  </Link>
+                )}
+                <button
+                  onClick={logout}
+                  className="text-white hover:text-gray-300"
+                >
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

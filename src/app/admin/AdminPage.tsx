@@ -1,5 +1,4 @@
-'use client'
-
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import MarkdownEditor from 'react-markdown-editor-lite';
@@ -14,6 +13,7 @@ const AdminPage: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>('');
   const [preview, setPreview] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null); // New state for success messages
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
@@ -35,17 +35,26 @@ const AdminPage: React.FC = () => {
       return;
     }
 
+    if (!markdown.trim()) {
+      setError('Content cannot be empty.');
+      return;
+    }
+
     setLoading(true);
+    setError(null); // Clear any previous error
+    setSuccess(null); // Clear any previous success message
+
     try {
       await addDoc(collection(db, 'hospitals'), {
         content: markdown,
         createdAt: new Date(),
-        author: user.email, // Optional: store who created the document
+        author: user.email || 'Anonymous', // Handle cases where email might be undefined
       });
       setMarkdown('');
       setPreview('');
-      setError(null);
+      setSuccess('Document saved successfully!'); // Set success message
     } catch (err) {
+      console.error('Error saving document:', err); // Log the error for debugging
       setError('Failed to save the document.');
     } finally {
       setLoading(false);
@@ -73,6 +82,7 @@ const AdminPage: React.FC = () => {
         {loading ? 'Saving...' : 'Save'}
       </button>
       {error && <p className="text-red-500 mt-4">{error}</p>}
+      {success && <p className="text-green-500 mt-4">{success}</p>} {/* Display success message */}
       <div className="mt-8">
         <h2 className="text-xl font-semibold">Preview</h2>
         <ReactMarkdown>{preview}</ReactMarkdown>
