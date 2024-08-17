@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Links from '@components/navbar/links/Links'; // Ensure this is correctly imported
+import Links from '@components/navbar/links/links'; // Ensure this is correctly imported
 import { useState } from 'react';
 import { useAuth } from '@contexts/AuthContext'; // Import useAuth
 import { usePathname } from 'next/navigation'; // Import usePathname
@@ -14,7 +14,7 @@ const Nav = () => {
   const pathname = usePathname(); // Get current pathname
 
   return (
-    <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-gray-200 shadow-md rounded-b-lg'>
+    <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-gradient-to-r from-blue-500 to-teal-500 shadow-lg rounded-b-lg'>
       {/* Container for Logo and Toggle Button */}
       <div className='flex items-center justify-between w-full md:w-auto'>
         {/* Logo and Brand Name */}
@@ -26,12 +26,12 @@ const Nav = () => {
             height={40}
             className="object-contain"
           />
-          <p className="text-xl md:text-2xl font-bold text-gray-800 hidden lg:block">MedEase</p>
+          <p className="text-xl md:text-2xl font-bold text-white hidden lg:block">MedEase</p>
         </Link>
 
         {/* Mobile menu button */}
         <button
-          className='md:hidden flex items-center p-2 text-gray-800 focus:outline-none'
+          className='md:hidden flex items-center p-2 text-white focus:outline-none'
           onClick={() => setIsMenuOpen(prev => !prev)}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu"
@@ -56,7 +56,7 @@ const Nav = () => {
           <>
             <Link
               href="/search"
-              className={`text-gray-800 hover:text-gray-600 ${pathname === '/search' ? 'font-bold' : ''}`}
+              className={`text-white hover:text-gray-200 ${pathname === '/search' ? 'font-bold border-b-2 border-white' : ''}`}
               aria-current={pathname === '/search' ? 'page' : undefined}
             >
               Search
@@ -64,7 +64,7 @@ const Nav = () => {
             {userRole === 'admin' && (
               <Link
                 href="/admin"
-                className={`text-gray-800 hover:text-gray-600 ${pathname === '/admin' ? 'font-bold' : ''}`}
+                className={`text-white hover:text-gray-200 ${pathname === '/admin' ? 'font-bold border-b-2 border-white' : ''}`}
                 aria-current={pathname === '/admin' ? 'page' : undefined}
               >
                 Admin Dashboard
@@ -72,7 +72,7 @@ const Nav = () => {
             )}
             <button
               onClick={logout}
-              className="text-gray-800 hover:text-gray-600"
+              className="text-white hover:text-gray-200 transition-transform transform hover:scale-105"
             >
               Logout
             </button>
@@ -82,14 +82,14 @@ const Nav = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div id="mobile-menu" className='md:hidden fixed top-full right-0 bg-gray-800 text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
+        <div id="mobile-menu" className='md:hidden fixed top-0 right-0 bg-gray-900 text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
           <div className='flex flex-col space-y-4'>
             <Links />
             {isAuthenticated && (
               <>
                 <Link
                   href="/search"
-                  className={`text-white hover:text-gray-300 ${pathname === '/search' ? 'font-bold' : ''}`}
+                  className={`text-white hover:text-gray-300 ${pathname === '/search' ? 'font-bold border-b-2 border-white' : ''}`}
                   aria-current={pathname === '/search' ? 'page' : undefined}
                 >
                   Search
@@ -97,7 +97,7 @@ const Nav = () => {
                 {userRole === 'admin' && (
                   <Link
                     href="/admin"
-                    className={`text-white hover:text-gray-300 ${pathname === '/admin' ? 'font-bold' : ''}`}
+                    className={`text-white hover:text-gray-300 ${pathname === '/admin' ? 'font-bold border-b-2 border-white' : ''}`}
                     aria-current={pathname === '/admin' ? 'page' : undefined}
                   >
                     Admin Dashboard
@@ -105,7 +105,7 @@ const Nav = () => {
                 )}
                 <button
                   onClick={logout}
-                  className="text-white hover:text-gray-300"
+                  className="text-white hover:text-gray-300 transition-transform transform hover:scale-105"
                 >
                   Logout
                 </button>

@@ -74,7 +74,7 @@ body {
   height: fit-content;
   z-index: 3;
   width: 100%;
-  max-width: 640px;
+  max-width: none; /* Remove or set to none */
   background-image: radial-gradient(
       at 27% 37%,
       hsla(215, 98%, 61%, 1) 0px,
@@ -94,6 +94,7 @@ body {
   top: 80px;
   opacity: 0.15;
 }
+
 
 /* Media queries */
 @media screen and (max-width: 640px) {
@@ -124,8 +125,9 @@ body {
 
 /* App container */
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+  @apply relative z-10 flex justify-center items-center flex-col w-full sm:px-16 px-6;
 }
+
 
 /* Typography */
 .head_text {

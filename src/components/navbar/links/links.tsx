@@ -1,8 +1,8 @@
 'use client';
 
-import '@styles/globals.css';
-import NavLinks from '@components/navbar/links/navlinks/navlinks';
 import { useState } from 'react';
+import { useAuth } from '@contexts/AuthContext'; // Import the useAuth hook
+import NavLinks from '@components/navbar/links/navlinks/navlinks';
 import { usePathname } from 'next/navigation';
 
 interface NavLink {
@@ -17,52 +17,71 @@ const Links = () => {
     { title: 'Contact', path: '/contact' },
     { title: 'Services', path: '/services' },
     { title: 'Search', path: '/search' },
-    { title: 'Sign up', path: '/signup' },
   ];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathName = usePathname();
-  const session: boolean = true; // Temporary session state
-  const isAdmin: boolean = true; // Temporary admin state
+  const { isAuthenticated, userRole, logout } = useAuth();
 
-  // Function to toggle menu visibility
   const toggleMenu = () => {
     setIsOpen(prevState => !prevState);
   };
 
-  // Function to close the menu
   const closeMenu = () => {
     setIsOpen(false);
   };
 
-  // Function to determine if a link is active
   const isActive = (path: string) => (pathName === path ? 'text-blue-500 font-bold' : '');
 
   return (
     <nav className='relative'>
       {/* Desktop navigation links */}
       <div className='hidden md:flex items-center space-x-4'>
-        <NavLinks item={{ title: 'Home', path: '/' }} className={isActive('/')} />
-        <div className='hidden lg:flex space-x-4'>
-          {navLinks.slice(1).map((link) => (
-            <NavLinks item={link} key={link.title} className={isActive(link.path)} />
+        <div className='flex space-x-4'>
+          {navLinks.map((link) => (
+            <NavLinks 
+              key={link.path} 
+              item={link} 
+              className={isActive(link.path)} 
+              isAuthenticated={isAuthenticated} 
+            />
           ))}
         </div>
-        {session ? (
-          <>
-            {isAdmin && (
-              <NavLinks item={{ title: 'Admin', path: '/admin' }} className={isActive('/admin')} />
-            )}
-            <button 
-              className='text-blue-500 hover:text-blue-700' 
-              onClick={() => { /* Logout logic */ }}
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <NavLinks item={{ title: 'Login', path: '/login' }} className={isActive('/login')} />
-        )}
+        <div className='border-l border-gray-600 pl-4 flex space-x-4'>
+          {isAuthenticated ? (
+            <>
+              {userRole === 'admin' && (
+                <NavLinks 
+                  key="/admin"
+                  item={{ title: 'Admin', path: '/admin' }} 
+                  className={isActive('/admin')} 
+                  isAuthenticated={isAuthenticated} 
+                />
+              )}
+              <button 
+                className='text-blue-500 hover:text-blue-700' 
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLinks 
+                key="/signup"
+                item={{ title: 'Sign Up', path: '/signup' }} 
+                className={isActive('/signup')} 
+                isAuthenticated={isAuthenticated} 
+              />
+              <NavLinks 
+                key="/login"
+                item={{ title: 'Login', path: '/login' }} 
+                className={isActive('/login')} 
+                isAuthenticated={isAuthenticated} 
+              />
+            </>
+          )}
+        </div>
       </div>
 
       {/* Menu button for small devices */}
@@ -79,22 +98,56 @@ const Links = () => {
       {/* Mobile menu */}
       <div 
         id="mobile-menu" 
-        className={`md:hidden fixed top-0 right-0 bg-blue-gradient text-white shadow-lg p-4 w-64 max-w-full max-h-[80vh] overflow-y-auto transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-40`}
+        className={`md:hidden fixed top-0 right-0 bg-blue-800 text-white shadow-lg p-4 w-64 max-w-full max-h-[80vh] overflow-y-auto transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-40`}
       >
         <div className='flex flex-col space-y-4 mt-16'>
           {navLinks.map((link) => (
-            <NavLinks item={link} key={link.title} className={isActive(link.path)} onClick={closeMenu} />
+            <NavLinks 
+              key={link.path}
+              item={link} 
+              className={isActive(link.path)} 
+              onClick={closeMenu} 
+              isAuthenticated={isAuthenticated} 
+            />
           ))}
-          {session ? (
-            <>
-              {isAdmin && (
-                <NavLinks item={{ title: 'Admin', path: '/admin' }} className={isActive('/admin')} onClick={closeMenu} />
-              )}
-              <button className='text-blue-500 hover:text-blue-700' onClick={closeMenu}>Logout</button>
-            </>
-          ) : (
-            <NavLinks item={{ title: 'Login', path: '/login' }} className={isActive('/login')} onClick={closeMenu} />
-          )}
+          <div className='border-t border-gray-600 mt-4 pt-4'>
+            {isAuthenticated ? (
+              <>
+                {userRole === 'admin' && (
+                  <NavLinks 
+                    key="/admin"
+                    item={{ title: 'Admin', path: '/admin' }} 
+                    className={isActive('/admin')} 
+                    onClick={closeMenu} 
+                    isAuthenticated={isAuthenticated} 
+                  />
+                )}
+                <button 
+                  className='text-blue-500 hover:text-blue-700' 
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLinks 
+                  key="/signup"
+                  item={{ title: 'Sign Up', path: '/signup' }} 
+                  className={isActive('/signup')} 
+                  onClick={closeMenu} 
+                  isAuthenticated={isAuthenticated} 
+                />
+                <NavLinks 
+                  key="/login"
+                  item={{ title: 'Login', path: '/login' }} 
+                  className={isActive('/login')} 
+                  onClick={closeMenu} 
+                  isAuthenticated={isAuthenticated} 
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>
