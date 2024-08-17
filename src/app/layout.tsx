@@ -17,11 +17,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="main">
             <div className="gradient" />
           </div>
-          <main className="app">
+          <div className="app-container">
             <Nav />
-            {children}
+            <main className="app">
+              {children}
+            </main>
             <Footer />
-          </main>
+          </div>
         </AuthProvider>
       </body>
     </html>

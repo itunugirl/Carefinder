@@ -8,7 +8,6 @@ interface AuthContextType {
   userRole?: 'user' | 'admin'; // Define roles
   login: (role?: 'user' | 'admin') => void; // Login with optional role
   logout: () => void;
-  setUserRole?: (role: 'user' | 'admin') => void; // Optional role setter
   hasPermission: (permission: string) => boolean; // Check permissions
 }
 
@@ -18,19 +17,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<'user' | 'admin' | undefined>(undefined);
 
+  // Log in a user with a specified role (defaults to 'user')
   const login = (role: 'user' | 'admin' = 'user') => {
     setIsAuthenticated(true);
     setUserRole(role);
   };
 
+  // Log out the user and clear their role
   const logout = () => {
     setIsAuthenticated(false);
     setUserRole(undefined);
   };
 
+  // Check if the user has a specific permission
   const hasPermission = (permission: string) => {
     if (!userRole) return false;
 
+    // Define permissions for each role
     const adminPermissions = [
       'manage_users',
       'manage_settings',
@@ -54,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userRole, login, logout, setUserRole, hasPermission }}>
+    <AuthContext.Provider value={{ isAuthenticated, userRole, login, logout, hasPermission }}>
       {children}
     </AuthContext.Provider>
   );
