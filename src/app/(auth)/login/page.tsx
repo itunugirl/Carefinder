@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState(''); 
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -42,16 +42,19 @@ const LoginPage: React.FC = () => {
       if (error instanceof FirebaseError) {
         switch (error.code) {
           case 'auth/wrong-password':
-            setError("Incorrect password.");
+            setError("Incorrect password. Please try again.");
             break;
           case 'auth/user-not-found':
-            setError("No user found with this email.");
+            setError("No user found with this email. Please check your email address.");
+            break;
+          case 'auth/too-many-requests':
+            setError("Too many requests. Please try again later.");
             break;
           default:
-            setError("Failed to log in. Please try again.");
+            setError("Failed to log in. Please check your credentials and try again.");
         }
       } else {
-        setError("Failed to log in. Please try again.");
+        setError("An unexpected error occurred. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -70,7 +73,7 @@ const LoginPage: React.FC = () => {
 
       router.push('/search'); // Redirect to search page after successful login
     } catch (error) {
-      setError("Failed to sign in with Google.");
+      setError("Failed to sign in with Google. Please try again.");
     }
   };
 
@@ -86,7 +89,7 @@ const LoginPage: React.FC = () => {
 
       router.push('/search'); // Redirect to search page after successful login
     } catch (error) {
-      setError("Failed to sign in with Facebook.");
+      setError("Failed to sign in with Facebook. Please try again.");
     }
   };
 
@@ -105,7 +108,7 @@ const LoginPage: React.FC = () => {
       </div>
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
         <form onSubmit={handleLogin} className="space-y-6 w-full max-w-md md:max-w-4xl bg-white p-6 md:p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6">Sign in to medEase</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-6">Sign in to MedEase</h1>
           <input
             type="email"
             value={email}
