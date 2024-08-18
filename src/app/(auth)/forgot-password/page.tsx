@@ -1,10 +1,8 @@
-// pages/forgot-password.tsx
-
 'use client';
 
 import React, { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@firebaseConfig';
+import { auth } from '@firebaseConfig/index';
 import { useRouter } from 'next/navigation';
 
 const ForgotPasswordPage: React.FC = () => {
@@ -57,8 +55,8 @@ const ForgotPasswordPage: React.FC = () => {
             className="w-full p-4 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
-          {error && <p className="text-red-500">{error}</p>}
-          {success && <p className="text-green-500">{success}</p>}
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          {success && <p className="text-green-500 mb-4">{success}</p>}
           <button
             type="submit"
             disabled={loading}

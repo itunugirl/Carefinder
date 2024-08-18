@@ -1,17 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@contexts/AuthContext'; // Import the useAuth hook
+import { useAuth } from '@contexts/AuthContext';
 import NavLinks from '@components/navbar/links/navlinks/navlinks';
 import { usePathname } from 'next/navigation';
 
-interface NavLink {
-  title: string;
-  path: string;
-}
-
-const Links = () => {
-  const navLinks: NavLink[] = [
+const Links: React.FC = () => {
+  const navLinks = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
     { title: 'Contact', path: '/contact' },
@@ -23,15 +18,18 @@ const Links = () => {
   const pathName = usePathname();
   const { isAuthenticated, userRole, logout } = useAuth();
 
+  // Toggle mobile menu visibility
   const toggleMenu = () => {
     setIsOpen(prevState => !prevState);
   };
 
+  // Close mobile menu
   const closeMenu = () => {
     setIsOpen(false);
   };
 
-  const isActive = (path: string) => (pathName === path ? 'text-blue-500 font-bold' : '');
+  // Determine if a path is active
+  const isActive = (path: string) => pathName === path ? 'text-blue-500 font-bold' : '';
 
   return (
     <nav className='relative'>
@@ -44,6 +42,7 @@ const Links = () => {
               item={link} 
               className={isActive(link.path)} 
               isAuthenticated={isAuthenticated} 
+              userRole={userRole}
             />
           ))}
         </div>
@@ -56,6 +55,7 @@ const Links = () => {
                   item={{ title: 'Admin', path: '/admin' }} 
                   className={isActive('/admin')} 
                   isAuthenticated={isAuthenticated} 
+                  userRole={userRole}
                 />
               )}
               <button 
@@ -72,12 +72,14 @@ const Links = () => {
                 item={{ title: 'Sign Up', path: '/signup' }} 
                 className={isActive('/signup')} 
                 isAuthenticated={isAuthenticated} 
+                userRole={userRole}
               />
               <NavLinks 
                 key="/login"
                 item={{ title: 'Login', path: '/login' }} 
                 className={isActive('/login')} 
                 isAuthenticated={isAuthenticated} 
+                userRole={userRole}
               />
             </>
           )}

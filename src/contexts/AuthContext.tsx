@@ -1,14 +1,13 @@
-'use client';
+'use client'
 
-// src/contexts/AuthContext.tsx
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  userRole?: 'user' | 'admin'; // Define roles
-  login: (role?: 'user' | 'admin') => void; // Login with optional role
+  userRole?: 'user' | 'admin';
+  login: (role?: 'user' | 'admin') => void;
   logout: () => void;
-  hasPermission: (permission: string) => boolean; // Check permissions
+  hasPermission: (permission: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,19 +16,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<'user' | 'admin' | undefined>(undefined);
 
-  // Log in a user with a specified role (defaults to 'user')
+  // Function to log in with a specified role
   const login = (role: 'user' | 'admin' = 'user') => {
     setIsAuthenticated(true);
     setUserRole(role);
   };
 
-  // Log out the user and clear their role
+  // Function to log out and reset authentication state
   const logout = () => {
     setIsAuthenticated(false);
     setUserRole(undefined);
   };
 
-  // Check if the user has a specific permission
+  // Function to check if the user has a specific permission
   const hasPermission = (permission: string) => {
     if (!userRole) return false;
 
@@ -47,6 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       'submit_data'
     ];
 
+    // Check permissions based on the user role
     if (userRole === 'admin') {
       return adminPermissions.includes(permission);
     } else if (userRole === 'user') {
@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Custom hook to use the authentication context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
