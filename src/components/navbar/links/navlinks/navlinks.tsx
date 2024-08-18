@@ -9,13 +9,18 @@ interface NavLinkProps {
   onClick?: () => void; // Optional onClick prop
   className?: string; // Allow className prop
   isAuthenticated?: boolean; // Optional prop to check authentication
+  userRole?: string; // Optional prop for user role
 }
 
-const NavLinks: React.FC<NavLinkProps> = ({ item, onClick, className, isAuthenticated }) => {
+const NavLinks: React.FC<NavLinkProps> = ({ item, onClick, className, isAuthenticated, userRole }) => {
   const pathName = usePathname();
 
-  // If the path is '/search' and the user is not authenticated, don't render the link
+  // Determine if the link should be rendered based on authentication and role
   if (item.path === '/search' && !isAuthenticated) {
+    return null;
+  }
+  
+  if (item.path === '/admin' && (!isAuthenticated || userRole !== 'admin')) {
     return null;
   }
 

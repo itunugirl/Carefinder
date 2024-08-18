@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import MarkdownEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import ReactMarkdown from 'react-markdown';
-import { db } from '@firebaseConfig';
+import { db } from '@firebaseConfig/index';
 import { collection, addDoc } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '@firebaseConfig';
+import { auth } from '@firebaseConfig/index';
 
 const AdminPage: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>('');

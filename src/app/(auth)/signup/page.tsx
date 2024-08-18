@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signInWithPopup } from 'firebase/auth';
-import { auth, db, googleProvider, facebookProvider } from '@firebaseConfig';
+import { auth, db, googleProvider, facebookProvider } from '@firebaseConfig/index';
 import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { FirebaseError } from 'firebase/app';
@@ -20,8 +20,8 @@ const SignUpPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false); 
-  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();  // Make sure to use the hook here
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,20 +91,28 @@ const SignUpPage: React.FC = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    setLoading(true);
     try {
       await signInWithPopup(auth, googleProvider);
       router.push("/search");
     } catch (error) {
-      setError("Failed to sign in with Google.");
+      console.error("Google sign-in error:", error);
+      setError("Failed to sign in with Google. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleFacebookSignIn = async () => {
+    setLoading(true);
     try {
       await signInWithPopup(auth, facebookProvider);
       router.push("/search");
     } catch (error) {
-      setError("Failed to sign in with Facebook.");
+      console.error("Facebook sign-in error:", error);
+      setError("Failed to sign in with Facebook. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -205,27 +213,28 @@ const SignUpPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-4 px-6 text-white bg-blue-600 rounded-md text-lg font-semibold ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"}`}
+            className={`w-full py-4 px-6 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {loading ? "Signing Up..." : "Sign Up"}
           </button>
-          <div className="text-center text-gray-600">
-            <p>Already have an account? <a href="/login" className="text-blue-500 hover:underline">Log in</a></p>
-          </div>
-          <div className="flex justify-center space-x-4 mt-4">
+          <div className="flex justify-between items-center mt-6">
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="flex items-center justify-center p-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+              className={`flex items-center justify-center p-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={loading}
             >
               <FontAwesomeIcon icon={faGoogle} className="text-blue-500 w-6 h-6" />
+              <span className="ml-2 text-blue-500">Sign Up with Google</span>
             </button>
             <button
               type="button"
               onClick={handleFacebookSignIn}
-              className="flex items-center justify-center p-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+              className={`flex items-center justify-center p-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={loading}
             >
-              <FontAwesomeIcon icon={faFacebook} className="text-blue-700 w-6 h-6" />
+              <FontAwesomeIcon icon={faFacebook} className="text-blue-600 w-6 h-6" />
+              <span className="ml-2 text-blue-600">Sign Up with Facebook</span>
             </button>
           </div>
         </form>

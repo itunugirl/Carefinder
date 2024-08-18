@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { db } from '@firebaseConfig';
+import { db } from '@firebaseConfig/index';
 import { collection, addDoc } from 'firebase/firestore';
 
 const ContactPage: React.FC = () => {

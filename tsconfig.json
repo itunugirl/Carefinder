@@ -18,9 +18,11 @@
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
-      "@firebaseConfig/*": ["src/firebaseConfig/*"],  // Corrected this line
-      "metaData": ["src/data/metaData"],
-      "@*": ["src/*"]
+      "@firebaseConfig/*": ["src/firebaseConfig/*"],
+      "@data/metaData/*": ["src/app/metaData/*"],
+      "@/*": ["src/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@contexts/*": ["src/contexts/*"]
     },
     "plugins": [{ "name": "next" }]
   },

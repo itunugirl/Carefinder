@@ -7,22 +7,21 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'fonts.googleapis.com',
         port: '',
-        pathname: '/css2/**', // You can use wildcard to match any path
+        pathname: '/css2/**', // Wildcard to match any path
       },
       {
         protocol: 'https',
         hostname: 'i.postimg.cc', // Only the domain name
         port: '',
-        pathname: '/**', // Correct path for the image
+        pathname: '/**', // Match any path
       },
-     
       // Add other patterns if necessary
     ],
   },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@firebaseConfig': path.resolve(__dirname, 'src/firebaseConfig.ts'),
+      '@firebaseConfig': path.resolve(__dirname, 'src/firebaseConfig'),
       'metaData': path.resolve(__dirname, 'src/data/metaData'),
     };
     return config;
