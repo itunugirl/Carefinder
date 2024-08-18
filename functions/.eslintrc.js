@@ -3,7 +3,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
-    browser: true, // Add browser environment
+    browser: true,
   },
   extends: [
     "eslint:recommended",
@@ -12,7 +12,7 @@ module.exports = {
     "plugin:import/typescript",
     "google",
     "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals", // Add Next.js core web vitals
+    "next/core-web-vitals",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -26,15 +26,15 @@ module.exports = {
   plugins: [
     "@typescript-eslint",
     "import",
-    "react", // Add React plugin
-    "react-hooks", // Add React hooks plugin
+    "react",
+    "react-hooks",
   ],
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
     "indent": ["error", 2],
-    "react/react-in-jsx-scope": "off", // Disable the rule requiring React to be in scope for JSX
-    "react-hooks/rules-of-hooks": "error", // Ensure hooks are used correctly
-    "react-hooks/exhaustive-deps": "warn", // Warn about missing dependencies in hooks
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };

@@ -1,10 +1,10 @@
-const path = require('path');
-const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const webpack = require('webpack');
+import path from 'path';
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
+import DotenvWebpackPlugin from 'dotenv-webpack';
+import webpack from 'webpack';
 
-module.exports = {
-  entry: './functions/src/index.ts',
+const config: webpack.Configuration = {
+  entry: path.resolve(__dirname, 'functions/src/index.ts'), // Ensure this path is correct
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -23,20 +23,19 @@ module.exports = {
       '@': path.resolve(__dirname, 'src/'),
     },
     fallback: {
-      "net": false,
-      "http2": false,
-      "tls": false,
-      "async_hooks": false,
-      "child_process": false
-    }
+      net: false,
+      http2: false,
+      tls: false,
+      async_hooks: false,
+      child_process: false,
+    },
   },
   plugins: [
     new NodePolyfillPlugin(),
-    new Dotenv(),
+    new DotenvWebpackPlugin(), // Correct import and usage
     new webpack.DefinePlugin({
       'process.env': {
         NEXT_PUBLIC_FIREBASE_API_KEY: JSON.stringify(process.env.NEXT_PUBLIC_FIREBASE_API_KEY),
-        // Add other environment variables as needed
       },
     }),
   ],
@@ -54,7 +53,9 @@ module.exports = {
       chunks: 'all',
     },
     runtimeChunk: {
-      name: entrypoint => `runtime-${entrypoint.name}`,
+      name: (entrypoint) => `runtime-${entrypoint.name}`,
     },
   },
 };
+
+export default config;
