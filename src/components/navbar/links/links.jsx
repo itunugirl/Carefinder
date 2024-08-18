@@ -1,0 +1,75 @@
+"use strict";
+'use client';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = require("react");
+var AuthContext_1 = require("@contexts/AuthContext");
+var navlinks_1 = __importDefault(require("@components/navbar/links/navlinks/navlinks"));
+var navigation_1 = require("next/navigation");
+var Links = function () {
+    var navLinks = [
+        { title: 'Home', path: '/' },
+        { title: 'About', path: '/about' },
+        { title: 'Contact', path: '/contact' },
+        { title: 'Services', path: '/services' },
+        { title: 'Search', path: '/search' },
+    ];
+    var _a = (0, react_1.useState)(false), isOpen = _a[0], setIsOpen = _a[1];
+    var pathName = (0, navigation_1.usePathname)();
+    var _b = (0, AuthContext_1.useAuth)(), isAuthenticated = _b.isAuthenticated, userRole = _b.userRole, logout = _b.logout;
+    // Toggle mobile menu visibility
+    var toggleMenu = function () {
+        setIsOpen(function (prevState) { return !prevState; });
+    };
+    // Close mobile menu
+    var closeMenu = function () {
+        setIsOpen(false);
+    };
+    // Determine if a path is active
+    var isActive = function (path) { return pathName === path ? 'text-blue-500 font-bold' : ''; };
+    return (<nav className='relative'>
+      {/* Desktop navigation links */}
+      <div className='hidden md:flex items-center space-x-4'>
+        <div className='flex space-x-4'>
+          {navLinks.map(function (link) { return (<navlinks_1.default key={link.path} item={link} className={isActive(link.path)} isAuthenticated={isAuthenticated} userRole={userRole}/>); })}
+        </div>
+        <div className='border-l border-gray-600 pl-4 flex space-x-4'>
+          {isAuthenticated ? (<>
+              {userRole === 'admin' && (<navlinks_1.default key="/admin" item={{ title: 'Admin', path: '/admin' }} className={isActive('/admin')} isAuthenticated={isAuthenticated} userRole={userRole}/>)}
+              <button className='text-blue-500 hover:text-blue-700' onClick={logout}>
+                Logout
+              </button>
+            </>) : (<>
+              <navlinks_1.default key="/signup" item={{ title: 'Sign Up', path: '/signup' }} className={isActive('/signup')} isAuthenticated={isAuthenticated} userRole={userRole}/>
+              <navlinks_1.default key="/login" item={{ title: 'Login', path: '/login' }} className={isActive('/login')} isAuthenticated={isAuthenticated} userRole={userRole}/>
+            </>)}
+        </div>
+      </div>
+
+      {/* Menu button for small devices */}
+      <button className='md:hidden fixed top-4 right-4 z-50 flex items-center justify-center w-12 h-12 rounded-full shadow-lg bg-blue-500 text-white text-2xl transition-transform duration-300' onClick={toggleMenu} aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
+        {isOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Mobile menu */}
+      <div id="mobile-menu" className={"md:hidden fixed top-0 right-0 bg-blue-800 text-white shadow-lg p-4 w-64 max-w-full max-h-[80vh] overflow-y-auto transition-transform duration-300 ".concat(isOpen ? 'translate-x-0' : 'translate-x-full', " z-40")}>
+        <div className='flex flex-col space-y-4 mt-16'>
+          {navLinks.map(function (link) { return (<navlinks_1.default key={link.path} item={link} className={isActive(link.path)} onClick={closeMenu} isAuthenticated={isAuthenticated}/>); })}
+          <div className='border-t border-gray-600 mt-4 pt-4'>
+            {isAuthenticated ? (<>
+                {userRole === 'admin' && (<navlinks_1.default key="/admin" item={{ title: 'Admin', path: '/admin' }} className={isActive('/admin')} onClick={closeMenu} isAuthenticated={isAuthenticated}/>)}
+                <button className='text-blue-500 hover:text-blue-700' onClick={logout}>
+                  Logout
+                </button>
+              </>) : (<>
+                <navlinks_1.default key="/signup" item={{ title: 'Sign Up', path: '/signup' }} className={isActive('/signup')} onClick={closeMenu} isAuthenticated={isAuthenticated}/>
+                <navlinks_1.default key="/login" item={{ title: 'Login', path: '/login' }} className={isActive('/login')} onClick={closeMenu} isAuthenticated={isAuthenticated}/>
+              </>)}
+          </div>
+        </div>
+      </div>
+    </nav>);
+};
+exports.default = Links;

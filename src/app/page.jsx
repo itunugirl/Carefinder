@@ -1,0 +1,105 @@
+"use strict";
+'use client';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = require("react");
+var image_1 = __importDefault(require("next/image"));
+var fa_1 = require("react-icons/fa");
+var navigation_1 = require("next/navigation"); // Import useRouter from next/navigation
+var page_1 = __importDefault(require("@app/about/page")); // Import the About component
+var Home = function () {
+    var _a = (0, react_1.useState)(false), isModalOpen = _a[0], setIsModalOpen = _a[1];
+    var _b = (0, react_1.useState)(''), modalClass = _b[0], setModalClass = _b[1];
+    var router = (0, navigation_1.useRouter)(); // Initialize useRouter
+    (0, react_1.useEffect)(function () {
+        if (isModalOpen) {
+            setModalClass('fade-in');
+        }
+        else {
+            setModalClass('fade-out');
+        }
+    }, [isModalOpen]);
+    var openModal = function () { return setIsModalOpen(true); };
+    var closeModal = function () { return setIsModalOpen(false); };
+    var handleStartExploring = function () {
+        closeModal(); // Optionally close the modal before navigation
+        router.push('/signup'); // Navigate to the sign-up page
+    };
+    return (<div className='flex flex-col p-4 sm:p-6 md:p-8 lg:p-12'>
+      {/* Main Content */}
+      <div className='flex flex-col md:flex-row gap-6 sm:gap-4 mb-12'>
+        {/* Text Content */}
+        <div className='flex flex-col gap-6 md:gap-8 flex-1'>
+          <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400 mb-4 sm:mb-5 md:mb-6 lg:mb-8'>
+            Simplify Your Healthcare Journey with MedEase
+          </h1>
+          <h3 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 sm:mb-3 md:mb-4 lg:mb-6'>
+            Find, export, and share hospital information effortlessly
+          </h3>
+          <p className='text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-6 sm:mb-4 md:mb-5 lg:mb-6 leading-relaxed'>
+            MedEase simplifies healthcare access in Nigeria by helping users find, export, and share hospital information. Our user-friendly platform ensures you have all necessary hospital details at your fingertips, enhancing your healthcare experience.
+          </p>
+          <div className='flex flex-col sm:flex-row gap-4 sm:gap-2'>
+            <button onClick={openModal} className='p-3 sm:p-2 min-w-[140px] cursor-pointer border-none rounded bg-blue-600 text-white hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg'>
+              Get Started
+            </button>
+          </div>
+        </div>
+
+        {/* Image */}
+        <div className='relative hidden md:block w-full md:w-1/2 h-56 sm:h-64 md:h-80 lg:h-[400px]'>
+          <image_1.default src='https://i.postimg.cc/ZK0cLWYh/healthcare-3.gif' alt='Healthcare Animation' layout='fill' className='object-cover'/>
+        </div>
+      </div>
+
+      {/* About Section */}
+      <section className='relative bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 py-12 px-6 sm:px-8 md:px-10 lg:px-12 rounded-lg shadow-lg overflow-hidden'>
+        <div className='absolute inset-0 bg-gradient-to-r from-blue-500 to-teal-400 opacity-30'></div>
+        <div className='relative max-w-4xl mx-auto z-10'>
+          <div className='flex items-center mb-6'>
+            <div className='w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4'>
+              <fa_1.FaRegLightbulb className='w-8 h-8'/>
+            </div>
+            <h2 className='text-3xl sm:text-4xl font-bold text-gray-800'>
+              Welcome to MedEase
+            </h2>
+          </div>
+          <p className='text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed text-center mb-8'>
+            MedEase is dedicated to making healthcare accessible and straightforward. Our platform offers a seamless way to find, export, and share comprehensive hospital information. With a focus on user experience, we ensure that healthcare details are always within your reach, helping you make informed decisions and improving your overall healthcare journey.
+          </p>
+          <div className='flex justify-center'>
+            <a href='#' className='inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg'>
+              Discover More
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Modal */}
+      {isModalOpen && (<div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
+          <div className={"bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg w-full max-w-md relative overflow-hidden ".concat(modalClass)}>
+            <button onClick={closeModal} className='absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-lg sm:text-base'>
+              &times;
+            </button>
+            <h2 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-3'>
+              Welcome to MedEase
+            </h2>
+            <p className='mb-4 sm:mb-3 md:mb-4 lg:mb-5'>
+              Discover how MedEase can transform your healthcare experience. 
+              <br /> 
+              Get access to detailed hospital information and more with just a few clicks.
+            </p>
+            <button onClick={handleStartExploring} // Use the new function
+         className='w-full p-3 sm:p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors'>
+              Start Exploring
+            </button>
+          </div>
+        </div>)}
+
+      {/* Render the About component */}
+      <page_1.default />
+    </div>);
+};
+exports.default = Home;

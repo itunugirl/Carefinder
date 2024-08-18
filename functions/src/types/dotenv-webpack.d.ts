@@ -8,4 +8,3 @@ declare module 'dotenv-webpack' {
   
     export default DotenvWebpackPlugin;
   }
-  

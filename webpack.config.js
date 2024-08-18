@@ -1,15 +1,22 @@
-import path from 'path';
-import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
-import DotenvWebpackPlugin from 'dotenv-webpack';
-import webpack from 'webpack';
+const path = require('path');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const DotenvWebpackPlugin = require('dotenv-webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals'); // Add this line
 
-const config: webpack.Configuration = {
-  entry: path.resolve(__dirname, 'functions/src/index.ts'), // Ensure this path is correct
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+module.exports = {
+  target: 'node',
+  externals: [nodeExternals()],
+  entry: {
+    main: path.resolve(__dirname, 'functions/src/index.ts'),
   },
-  mode: 'development',
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  mode: 'production',
   devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -23,39 +30,48 @@ const config: webpack.Configuration = {
       '@': path.resolve(__dirname, 'src/'),
     },
     fallback: {
-      net: false,
       http2: false,
-      tls: false,
       async_hooks: false,
+      stream: require.resolve('stream-browserify'),
+      events: require.resolve('events'),
+      util: require.resolve('util'),
+      buffer: require.resolve('buffer'),
+      path: require.resolve('path-browserify'),
+      assert: require.resolve('assert'),
+      fs: false,
+      tls: false,
+      net: false,
       child_process: false,
     },
   },
+  experiments: {
+    syncWebAssembly: true,
+    asyncWebAssembly: true,
+  },
   plugins: [
+    new CleanWebpackPlugin(),
     new NodePolyfillPlugin(),
-    new DotenvWebpackPlugin(), // Correct import and usage
-    new webpack.DefinePlugin({
-      'process.env': {
-        NEXT_PUBLIC_FIREBASE_API_KEY: JSON.stringify(process.env.NEXT_PUBLIC_FIREBASE_API_KEY),
-      },
+    new DotenvWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'babel-loader',
+        use: 'ts-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.wasm$/,
+        type: 'webassembly/async',
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-    runtimeChunk: {
-      name: (entrypoint) => `runtime-${entrypoint.name}`,
-    },
+  node: {
+    __dirname: true,
+    __filename: true,
+    global: true,
   },
 };
-
-export default config;
