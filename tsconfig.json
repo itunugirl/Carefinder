@@ -4,9 +4,15 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+<<<<<<< HEAD
     "noEmit": false, // Ensure this is false to allow emitting output
     "esModuleInterop": true,
     "module": "commonjs",
+=======
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+>>>>>>> 30b08d0e0e84c47b5b27a5b30d47eb97b8444662
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -19,6 +25,7 @@
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
       "@firebaseConfig/*": ["src/firebaseConfig/*"],
+<<<<<<< HEAD
       "@data/metaData/*": ["src/data/metaData/*"],
       "@/*": ["src/*"],
       "@hooks/*": ["src/hooks/*"],
@@ -34,5 +41,15 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
+=======
+      "@data/metaData/*": ["src/app/metaData/*"],
+      "@/*": ["src/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@contexts/*": ["src/contexts/*"]
+    },
+    "plugins": [{ "name": "next" }]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+>>>>>>> 30b08d0e0e84c47b5b27a5b30d47eb97b8444662
   "exclude": ["node_modules"]
 }
