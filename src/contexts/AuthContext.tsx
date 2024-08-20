@@ -1,8 +1,7 @@
-'use client'
+'use client';
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -19,11 +18,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<'user' | 'admin' | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false); // New state to track client-side rendering
   const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true); // Set client-side flag
     const storedRole = localStorage.getItem('userRole');
     const authenticated = !!storedRole;
     setIsAuthenticated(authenticated);
@@ -31,40 +28,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false);
   }, []);
 
-  // Only use router if client-side
   const login = (role: 'user' | 'admin') => {
-    if (isClient) {
-      setIsAuthenticated(true);
-      setUserRole(role);
-      localStorage.setItem('userRole', role);
-      router.push(role === 'admin' ? '/admin' : '/search');
-    }
+    setIsAuthenticated(true);
+    setUserRole(role);
+    localStorage.setItem('userRole', role);
+    router.push(role === 'admin' ? '/admin' : '/search');
   };
 
   const logout = () => {
-    if (isClient) {
-      setIsAuthenticated(false);
-      setUserRole(undefined);
-      localStorage.removeItem('userRole');
-      router.push('/login');
-    }
+    setIsAuthenticated(false);
+    setUserRole(undefined);
+    localStorage.removeItem('userRole');
+    router.push('/login');
   };
 
   const hasPermission = (permission: string) => {
     if (!userRole) return false;
 
-    const adminPermissions = [
-      'manage_users',
-      'manage_settings',
-      'view_reports',
-      'modify_settings'
-    ];
-
-    const userPermissions = [
-      'view_content',
-      'interact_content',
-      'submit_data'
-    ];
+    const adminPermissions = ['manage_users', 'manage_settings', 'view_reports', 'modify_settings'];
+    const userPermissions = ['view_content', 'interact_content', 'submit_data'];
 
     if (userRole === 'admin') {
       return adminPermissions.includes(permission);

@@ -12,6 +12,7 @@ const Links: React.FC = () => {
     { title: 'Contact', path: '/contact' },
     { title: 'Services', path: '/services' },
     { title: 'Search', path: '/search' },
+    { title: 'Pricing', path: '/pricing' },
   ];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);

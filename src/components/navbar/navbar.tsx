@@ -92,7 +92,7 @@ const Nav = () => {
         {renderLinks()}
       </div>
       {isMenuOpen && (
-        <div id="mobile-menu" className='md:hidden fixed top-0 right-0  text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
+        <div id="mobile-menu" className='md:hidden fixed top-0 right-0 text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
           <div className='flex flex-col space-y-4'>
             {renderLinks()}
           </div>

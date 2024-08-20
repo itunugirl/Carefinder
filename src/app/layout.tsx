@@ -12,8 +12,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="main">
             <div className="gradient" />
           </div>
-          {/* Move Nav outside of the .app container */}
-          <Nav />
+          <Nav /> {/* Navigation bar outside of the main content */}
           <main className="app">
             {children}
             <Footer />

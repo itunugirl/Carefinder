@@ -10,6 +10,7 @@
 		"@fortawesome/free-solid-svg-icons": "^6.6.0",
 		"@fortawesome/react-fontawesome": "^0.2.2",
 		"@heroicons/react": "^2.1.5",
+		"@tailwindcss/line-clamp": "^0.4.4",
 		"@types/next": "^9.0.0",
 		"@types/react-slick": "^0.23.13",
 		"abort-controller": "^3.0.0",

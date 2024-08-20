@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { FaRegLightbulb } from 'react-icons/fa';
 import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 import About from '@app/about/page'; // Import the About component
+import Services  from '@app/services/page';
+import Pricing from '@app/pricing/page';
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,6 +119,8 @@ const Home = () => {
 
       {/* Render the About component */}
       <About />
+      <Services />
+      <Pricing />
     </div>
   );
 }
