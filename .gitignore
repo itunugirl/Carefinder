@@ -19,8 +19,5 @@ dist/
 # Miscellaneous
 .DS_Store
 *.pem
-<<<<<<< HEAD
 .next/
-=======
->>>>>>> 30b08d0e0e84c47b5b27a5b30d47eb97b8444662
 .next/

@@ -20,10 +20,10 @@ module.exports = {
       '@': path.resolve(__dirname, 'src/'),
     },
     fallback: {
-      "path": require.resolve("path-browserify"),
-      "crypto": require.resolve("crypto-browserify"),
-      "stream": require.resolve("stream-browserify"),
-    }
+      path: require.resolve('path-browserify'),
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+    },
   },
   module: {
     rules: [
@@ -35,6 +35,8 @@ module.exports = {
     ],
   },
   plugins: [
-    new NodePolyfillPlugin()
-  ]
+    new NodePolyfillPlugin(),
+  ],
 };
+
+export {};

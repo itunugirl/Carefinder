@@ -1,22 +1,17 @@
 {
+  "extends": "../tsconfig.json", // Ensure this path is correct relative to your `tsconfig.functions.json`
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
-    "strict": true,
     "target": "es2017",
     "baseUrl": ".",
     "paths": {
       "@utils/*": ["src/utils/*"]
     }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "lib"]
 }
