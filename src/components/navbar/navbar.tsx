@@ -19,6 +19,44 @@ const Nav = () => {
     setIsMenuOpen(false);
   }, [pathname]);
 
+  // Render navigation links based on authentication and role
+  const renderLinks = () => (
+    <>
+      <Links />
+      {isAuthenticated && (
+        <>
+          <Link
+            href="/search"
+            className={classNames('text-white hover:text-gray-200', {
+              'font-bold border-b-2 border-white': pathname === '/search'
+            })}
+            aria-current={pathname === '/search' ? 'page' : undefined}
+          >
+            Search
+          </Link>
+          {userRole === 'admin' && (
+            <Link
+              href="/admin"
+              className={classNames('text-white hover:text-gray-200', {
+                'font-bold border-b-2 border-white': pathname === '/admin'
+              })}
+              aria-current={pathname === '/admin' ? 'page' : undefined}
+            >
+              Admin Dashboard
+            </Link>
+          )}
+          <button
+            onClick={logout}
+            className="text-white hover:text-gray-200 transition-transform transform hover:scale-105"
+            aria-label="Logout"
+          >
+            Logout
+          </button>
+        </>
+      )}
+    </>
+  );
+
   return (
     <nav className='sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between w-full p-4 bg-gradient-to-r from-blue-500 to-teal-500 shadow-lg rounded-b-lg'>
       <div className='flex items-center justify-between w-full md:w-auto'>
@@ -51,74 +89,12 @@ const Nav = () => {
         </button>
       </div>
       <div className='hidden md:flex flex-wrap space-x-4 md:space-x-6'>
-        <Links />
-        {isAuthenticated && (
-          <>
-            <Link
-              href="/search"
-              className={classNames('text-white hover:text-gray-200', {
-                'font-bold border-b-2 border-white': pathname === '/search'
-              })}
-              aria-current={pathname === '/search' ? 'page' : undefined}
-            >
-              Search
-            </Link>
-            {userRole === 'admin' && (
-              <Link
-                href="/admin"
-                className={classNames('text-white hover:text-gray-200', {
-                  'font-bold border-b-2 border-white': pathname === '/admin'
-                })}
-                aria-current={pathname === '/admin' ? 'page' : undefined}
-              >
-                Admin Dashboard
-              </Link>
-            )}
-            <button
-              onClick={logout}
-              className="text-white hover:text-gray-200 transition-transform transform hover:scale-105"
-              aria-label="Logout"
-            >
-              Logout
-            </button>
-          </>
-        )}
+        {renderLinks()}
       </div>
       {isMenuOpen && (
-        <div id="mobile-menu" className='md:hidden fixed top-0 right-0 bg-gray-900 text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
+        <div id="mobile-menu" className='md:hidden fixed top-0 right-0  text-white shadow-lg w-full p-6 z-50 rounded-t-lg'>
           <div className='flex flex-col space-y-4'>
-            <Links />
-            {isAuthenticated && (
-              <>
-                <Link
-                  href="/search"
-                  className={classNames('text-white hover:text-gray-300', {
-                    'font-bold border-b-2 border-white': pathname === '/search'
-                  })}
-                  aria-current={pathname === '/search' ? 'page' : undefined}
-                >
-                  Search
-                </Link>
-                {userRole === 'admin' && (
-                  <Link
-                    href="/admin"
-                    className={classNames('text-white hover:text-gray-300', {
-                      'font-bold border-b-2 border-white': pathname === '/admin'
-                    })}
-                    aria-current={pathname === '/admin' ? 'page' : undefined}
-                  >
-                    Admin Dashboard
-                  </Link>
-                )}
-                <button
-                  onClick={logout}
-                  className="text-white hover:text-gray-300 transition-transform transform hover:scale-105"
-                  aria-label="Logout"
-                >
-                  Logout
-                </button>
-              </>
-            )}
+            {renderLinks()}
           </div>
         </div>
       )}

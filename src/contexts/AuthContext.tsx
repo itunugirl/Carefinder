@@ -1,13 +1,16 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   userRole?: 'user' | 'admin';
-  login: (role?: 'user' | 'admin') => void;
+  login: (role: 'user' | 'admin') => void;
   logout: () => void;
   hasPermission: (permission: string) => boolean;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -15,24 +18,41 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<'user' | 'admin' | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false); // New state to track client-side rendering
+  const router = useRouter();
 
-  // Function to log in with a specified role
-  const login = (role: 'user' | 'admin' = 'user') => {
-    setIsAuthenticated(true);
-    setUserRole(role);
+  useEffect(() => {
+    setIsClient(true); // Set client-side flag
+    const storedRole = localStorage.getItem('userRole');
+    const authenticated = !!storedRole;
+    setIsAuthenticated(authenticated);
+    setUserRole(storedRole as 'user' | 'admin' | undefined);
+    setLoading(false);
+  }, []);
+
+  // Only use router if client-side
+  const login = (role: 'user' | 'admin') => {
+    if (isClient) {
+      setIsAuthenticated(true);
+      setUserRole(role);
+      localStorage.setItem('userRole', role);
+      router.push(role === 'admin' ? '/admin' : '/search');
+    }
   };
 
-  // Function to log out and reset authentication state
   const logout = () => {
-    setIsAuthenticated(false);
-    setUserRole(undefined);
+    if (isClient) {
+      setIsAuthenticated(false);
+      setUserRole(undefined);
+      localStorage.removeItem('userRole');
+      router.push('/login');
+    }
   };
 
-  // Function to check if the user has a specific permission
   const hasPermission = (permission: string) => {
     if (!userRole) return false;
 
-    // Define permissions for each role
     const adminPermissions = [
       'manage_users',
       'manage_settings',
@@ -46,7 +66,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       'submit_data'
     ];
 
-    // Check permissions based on the user role
     if (userRole === 'admin') {
       return adminPermissions.includes(permission);
     } else if (userRole === 'user') {
@@ -57,8 +76,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userRole, login, logout, hasPermission }}>
-      {children}
+    <AuthContext.Provider value={{ isAuthenticated, userRole, login, logout, hasPermission, loading }}>
+      {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 };

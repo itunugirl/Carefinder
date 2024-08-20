@@ -100,7 +100,7 @@ const Links: React.FC = () => {
       {/* Mobile menu */}
       <div 
         id="mobile-menu" 
-        className={`md:hidden fixed top-0 right-0 bg-blue-800 text-white shadow-lg p-4 w-64 max-w-full max-h-[80vh] overflow-y-auto transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-40`}
+        className={`md:hidden fixed top-0 right-0 blue-gradient text-white shadow-lg p-4 w-64 max-w-full max-h-[80vh] overflow-y-auto transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-40`}
       >
         <div className='flex flex-col space-y-4 mt-16'>
           {navLinks.map((link) => (
