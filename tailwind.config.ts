@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-=======
-// tailwind.config.js
-module.exports = {
->>>>>>> 30b08d0e0e84c47b5b27a5b30d47eb97b8444662
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -62,8 +57,5 @@ module.exports = {
   },
   plugins: [],
 };
-<<<<<<< HEAD
 
 export default config;
-=======
->>>>>>> 30b08d0e0e84c47b5b27a5b30d47eb97b8444662
