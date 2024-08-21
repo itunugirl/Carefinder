@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss';
-import lineClamp from '@tailwindcss/line-clamp';
 
 const config: Config = {
   content: [
@@ -54,9 +53,17 @@ const config: Config = {
         'md': '1024px',
         'custom': '1300px',
       },
+      transitionProperty: {
+        'bg-color': 'background-color',
+        'box-shadow': 'box-shadow',
+      },
+      transitionDuration: {
+        '300': '300ms',
+      },
     },
   },
-  
+  // Remove the lineClamp plugin
+  plugins: [],
 };
 
 export default config;

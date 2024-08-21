@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { useAuth } from '@contexts/AuthContext';
 import NavLinks from '@components/navbar/links/navlinks/navlinks';
 import { usePathname } from 'next/navigation';
+import useScrollSpy from '@hooks/useScrollSpy'; // Adjust the path if necessary
 
 const Links: React.FC = () => {
+  const sectionIds = ['home', 'about', 'services', 'pricing']; // Adjust based on your section IDs
+  const activeSection = useScrollSpy(sectionIds);
+
   const navLinks = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
@@ -13,24 +17,19 @@ const Links: React.FC = () => {
     { title: 'Services', path: '/services' },
     { title: 'Search', path: '/search' },
     { title: 'Pricing', path: '/pricing' },
+    { title: 'FAQs', path: '/FAQ' },
   ];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const pathName = usePathname();
   const { isAuthenticated, userRole, logout } = useAuth();
 
-  // Toggle mobile menu visibility
-  const toggleMenu = () => {
-    setIsOpen(prevState => !prevState);
-  };
+  const toggleMenu = () => setIsOpen(prevState => !prevState);
+  const closeMenu = () => setIsOpen(false);
 
-  // Close mobile menu
-  const closeMenu = () => {
-    setIsOpen(false);
+  const isActive = (path: string) => {
+    const sectionId = path.replace('/', '');
+    return activeSection === sectionId ? 'text-blue-500 font-bold' : '';
   };
-
-  // Determine if a path is active
-  const isActive = (path: string) => pathName === path ? 'text-blue-500 font-bold' : '';
 
   return (
     <nav className='relative'>
@@ -73,14 +72,12 @@ const Links: React.FC = () => {
                 item={{ title: 'Sign Up', path: '/signup' }} 
                 className={isActive('/signup')} 
                 isAuthenticated={isAuthenticated} 
-                userRole={userRole}
               />
               <NavLinks 
                 key="/login"
                 item={{ title: 'Login', path: '/login' }} 
                 className={isActive('/login')} 
                 isAuthenticated={isAuthenticated} 
-                userRole={userRole}
               />
             </>
           )}

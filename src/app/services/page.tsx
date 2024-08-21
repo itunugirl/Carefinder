@@ -1,10 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // Import AOS styles
 
 const ServicePage: React.FC = () => {
   const [activeService, setActiveService] = useState<string | null>(null);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Duration of the animation
+      easing: 'ease-in-out', // Easing function for the animation
+      once: true, // Whether animation should happen only once or every time
+    });
+  }, []);
 
   const handleToggle = (service: string) => {
     setActiveService(activeService === service ? null : service);
@@ -25,8 +35,10 @@ const ServicePage: React.FC = () => {
           />
         </div>
         <div className="relative container mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Our Premium Services</h1>
-          <p className="text-base md:text-lg mb-8">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4" data-aos="fade-up">
+            Our Premium Services
+          </h1>
+          <p className="text-base md:text-lg mb-8" data-aos="fade-up" data-aos-delay="200">
             At <span className="font-semibold">MedEase</span>, we are committed to providing exceptional services tailored to your needs. Explore our offerings designed to improve your well-being and enhance your health journey.
           </p>
         </div>
@@ -37,7 +49,11 @@ const ServicePage: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
           
           {/* Service Card 1 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
+          <div 
+            className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105" 
+            data-aos="flip-down"
+            data-aos-delay="100"
+          >
             <Image
               src="https://i.postimg.cc/CLCF2397/service1.jpg"
               alt="Comprehensive Health Assessments"
@@ -61,7 +77,11 @@ const ServicePage: React.FC = () => {
           </div>
 
           {/* Service Card 2 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
+          <div 
+            className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105" 
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
             <Image
               src="https://i.postimg.cc/7Yqv5fQ1/service2.avif"
               alt="Personalized Wellness Programs"
@@ -85,7 +105,11 @@ const ServicePage: React.FC = () => {
           </div>
 
           {/* Service Card 3 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
+          <div 
+            className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105" 
+            data-aos="flip-down"
+            data-aos-delay="200"
+          >
             <Image
               src="https://i.postimg.cc/2yzHSB8V/service3.jpg"
               alt="Expert Consultations"

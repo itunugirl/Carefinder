@@ -12,8 +12,8 @@ var Links = function () {
     var navLinks = [
         { title: 'Home', path: '/' },
         { title: 'About', path: '/about' },
-        { title: 'Contact', path: '/contact' },
-        { title: 'Services', path: '/services' },
+        { title: 'Services', path: '/contact' },
+        { title: 'Contact', path: '/services' },
         { title: 'Search', path: '/search' },
     ];
     var _a = (0, react_1.useState)(false), isOpen = _a[0], setIsOpen = _a[1];
