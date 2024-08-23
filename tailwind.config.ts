@@ -49,8 +49,11 @@ const config: Config = {
         '2': '2',
       },
       screens: {
-        'lg': '1280px',
-        'md': '1024px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
         'custom': '1300px',
       },
       transitionProperty: {
@@ -62,8 +65,9 @@ const config: Config = {
       },
     },
   },
-  // Remove the lineClamp plugin
-  plugins: [],
+  plugins: [
+    
+  ],
 };
 
 export default config;

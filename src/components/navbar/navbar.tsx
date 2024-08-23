@@ -1,14 +1,15 @@
+// src/components/Navbar.tsx
 'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
 import Links from '@components/navbar/links/links';
 import { useState, useEffect } from 'react';
-import { useAuth } from '@contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext'; // Ensure this hook is correctly implemented
 import { usePathname } from 'next/navigation';
 import '@styles/globals.css';
 import classNames from 'classnames';
-import useScrollSpy from '@hooks/useScrollSpy'; // Ensure the path is correct
+import useScrollSpy from '@hooks/useScrollSpy'; // Ensure this hook is correctly implemented
 
 const Nav: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

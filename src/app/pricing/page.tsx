@@ -8,8 +8,8 @@ import 'aos/dist/aos.css';
 const Pricing: React.FC = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      once: true, // Animation only happens once
+      duration: 1000,
+      once: true,
     });
   }, []);
 
@@ -19,7 +19,7 @@ const Pricing: React.FC = () => {
         <title>Pricing | MedEase</title>
         <meta name="description" content="Explore our pricing plans and find the right option for you with MedEase." />
       </Head>
-      <div className="relative bg-gradient-to-r from-blue-50 to-teal-50 min-h-screen py-12 px-4" id="pricing-section">
+      <div className="relative bg-gradient-to-r from-blue-50 to-teal-50 min-h-screen py-8 px-4 sm:py-12 sm:px-6 md:px-8 lg:px-12" id="pricing-section">
         {/* Decorative Background Shapes */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
@@ -29,19 +29,19 @@ const Pricing: React.FC = () => {
           </svg>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 md:px-6 lg:px-12 py-8">
+        <div className="relative z-10 container mx-auto">
           {/* Header Section */}
-          <div className="text-center mb-12" id="pricing-header">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-teal-600">
+          <div className="text-center mb-8 sm:mb-12" id="pricing-header">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-teal-600">
               Our Pricing Plans
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-xl mx-auto leading-relaxed">
               Choose the plan that suits your needs and enjoy seamless access to our services. We offer a variety of options to ensure the best fit for you.
             </p>
           </div>
 
           {/* Pricing Cards */}
-          <div className="flex flex-col md:flex-row md:justify-center md:gap-8" id="pricing-cards">
+          <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
             {/* Basic Plan */}
             <div
               id="basic-plan"
@@ -49,33 +49,36 @@ const Pricing: React.FC = () => {
               data-aos-delay="100"
               data-aos-duration="1200"
               data-aos-easing="ease-in-out"
-              className="bg-white rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:bg-blue-50 w-full max-w-md mx-auto mb-8 md:mb-0 flex flex-col p-6"
+              className="bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-blue-50 w-full sm:w-80 md:w-96 lg:w-80 xl:w-1/4 mx-auto flex flex-col"
             >
-              <div className="bg-blue-600 text-white p-6 text-center rounded-t-xl">
-                <h2 className="text-xl md:text-2xl font-bold mb-2">Basic Plan</h2>
-                <p className="text-3xl md:text-4xl font-bold">$29 <span className="text-lg">/ month</span></p>
+              <div className="bg-blue-600 text-white p-4 sm:p-6 text-center rounded-t-lg">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">Basic Plan</h2>
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold">$29 <span className="text-sm sm:text-lg">/ month</span></p>
               </div>
-              <div className="p-6 flex-grow">
-                <ul className="space-y-4 mb-6">
+              <div className="p-4 sm:p-6 flex-grow">
+                <ul className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     Essential features
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     Email support
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     Monthly updates
                   </li>
                 </ul>
+                <div className="text-center mt-4">
+                  <button className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Select Plan</button>
+                </div>
               </div>
             </div>
 
@@ -86,82 +89,76 @@ const Pricing: React.FC = () => {
               data-aos-delay="200"
               data-aos-duration="1200"
               data-aos-easing="ease-in-out"
-              className="bg-white rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:bg-teal-50 w-full max-w-md mx-auto mb-8 md:mb-0 flex flex-col p-6"
+              className="bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-teal-50 w-full sm:w-80 md:w-96 lg:w-80 xl:w-1/4 mx-auto flex flex-col"
             >
-              <div className="bg-teal-600 text-white p-6 text-center rounded-t-xl">
-                <h2 className="text-xl md:text-2xl font-bold mb-2">Standard Plan</h2>
-                <p className="text-3xl md:text-4xl font-bold">$59 <span className="text-lg">/ month</span></p>
+              <div className="bg-teal-600 text-white p-4 sm:p-6 text-center rounded-t-lg">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">Standard Plan</h2>
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold">$59 <span className="text-sm sm:text-lg">/ month</span></p>
               </div>
-              <div className="p-6 flex-grow">
-                <ul className="space-y-4 mb-6">
+              <div className="p-4 sm:p-6 flex-grow">
+                <ul className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-600 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    All Basic Plan features
+                    All basic features
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-600 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     Priority support
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-teal-600 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Weekly updates
-                  </li>
-                  <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Access to premium features
+                    Bi-weekly updates
                   </li>
                 </ul>
+                <div className="text-center mt-4">
+                  <button className="bg-teal-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500">Select Plan</button>
+                </div>
               </div>
             </div>
 
             {/* Premium Plan */}
             <div
               id="premium-plan"
-              data-aos="zoom-in-up"
+              data-aos="zoom-in"
               data-aos-delay="300"
               data-aos-duration="1200"
               data-aos-easing="ease-in-out"
-              className="bg-white rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:bg-blue-100 w-full max-w-md mx-auto flex flex-col p-6"
+              className="bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-gray-50 w-full sm:w-80 md:w-96 lg:w-80 xl:w-1/4 mx-auto flex flex-col"
             >
-              <div className="bg-blue-800 text-white p-6 text-center rounded-t-xl">
-                <h2 className="text-xl md:text-2xl font-bold mb-2">Premium Plan</h2>
-                <p className="text-3xl md:text-4xl font-bold">$99 <span className="text-lg">/ month</span></p>
+              <div className="bg-gray-800 text-white p-4 sm:p-6 text-center rounded-t-lg">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">Premium Plan</h2>
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold">$99 <span className="text-sm sm:text-lg">/ month</span></p>
               </div>
-              <div className="p-6 flex-grow">
-                <ul className="space-y-4 mb-6">
+              <div className="p-4 sm:p-6 flex-grow">
+                <ul className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-800 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    All Standard Plan features
+                    All standard features
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-800 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    24/7 support
+                    Dedicated support
                   </li>
                   <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-800 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Daily updates
-                  </li>
-                  <li className="flex items-center text-gray-700">
-                    <svg className="w-6 h-6 text-blue-800 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Custom features
+                    Weekly updates
                   </li>
                 </ul>
+                <div className="text-center mt-4">
+                  <button className="bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600">Select Plan</button>
+                </div>
               </div>
             </div>
           </div>
@@ -169,6 +166,6 @@ const Pricing: React.FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default Pricing;
